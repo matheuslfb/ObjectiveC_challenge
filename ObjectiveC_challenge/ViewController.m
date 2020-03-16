@@ -26,8 +26,8 @@ NSString *base_url ;
     // Do any additional setup after loading the view.
     
     self.API_KEY =  @"6af6fb6deb5f2e4c6d36e514240eeebb";
-    self.popularURL = @"https://api.themoviedb.org/3/movie/popular?";
-    base_url = [NSString stringWithFormat: @"%@%@", _popularURL, _API_KEY];
+    self.popularURL = @"https://api.themoviedb.org/3/movie/popular?api_key=";
+    base_url = [NSString stringWithFormat: @"%@%@", _popularURL, _API_KEY, @"&language=en-US&page=1"];
     
     
     self.view.backgroundColor = UIColor.blackColor;
@@ -37,7 +37,16 @@ NSString *base_url ;
 - (void) fetchMovies {
     NSLog(@"Fetching movies");
     NSLog(base_url);
-    NSString *url = @"";
+    
+    NSURL *url = [NSURL URLWithString: base_url];
+    
+  [  [NSURLSession.sharedSession dataTaskWithURL: url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+      NSLog(@"Finished fetching movies");
+      NSString *teste = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+      
+      NSLog(teste);
+  }] resume];
+    
 }
 
 
