@@ -10,6 +10,7 @@
 
 @interface ViewController : UIViewController
 
-
+@property (nonatomic) NSString *API_KEY;
+@property (nonatomic) NSString *popularURL;
 @end
 
