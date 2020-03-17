@@ -12,26 +12,22 @@
 
 @end
 
-
-
-
-
-
 @implementation MainViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+}
+
+- (void)viewWillAppear:(BOOL)animated   {
     self.navigationItem.title = @"Movies";
     self.navigationController.navigationBar.prefersLargeTitles = YES;
-    
-    
 }
+
 - (IBAction)showDetails:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Details" bundle:nil];
     DetailsViewController * detail = [storyboard instantiateInitialViewController];
-//    detail.title = @"Movie Details";
 
 
     [self showViewController:detail sender:self];
