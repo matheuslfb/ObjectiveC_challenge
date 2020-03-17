@@ -17,12 +17,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated   {
     self.navigationItem.title = @"Movies";
     self.navigationController.navigationBar.prefersLargeTitles = YES;
+
 }
 
 - (IBAction)showDetails:(id)sender {

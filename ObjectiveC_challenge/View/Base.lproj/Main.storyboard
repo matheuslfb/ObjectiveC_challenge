@@ -25,6 +25,12 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Tol-32-kwo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0j3-Wg-ywV"/>
+                            <constraint firstItem="Tol-32-kwo" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="63" id="Dwq-YY-pD6"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Tol-32-kwo" secondAttribute="trailing" id="WKz-eZ-hMz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Tol-32-kwo" secondAttribute="bottom" id="ZRM-gd-NP4"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="yov-fZ-iIB"/>
