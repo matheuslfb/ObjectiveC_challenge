@@ -23,8 +23,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationItem.title = @"Movies";
-    self.navigationController.navigationBar.prefersLargeTitles = YES;
+//    self.navigationItem.title = @"Movies";
+//    self.navigationController.navigationBar.prefersLargeTitles = YES;
     
     
 }
