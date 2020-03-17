@@ -8,6 +8,8 @@
 
 #import "MainViewController.h"
 #import <UIKit/UIKit.h>
+
+
 @interface MainViewController ()
 
 @end
@@ -17,17 +19,20 @@
 
 
 
-@implementation MainViewController
+@implementation MainViewController {
+    NSArray *tableData;
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    tableData = [NSArray arrayWithObjects:@"Bateta", @"Luisa", @"Luna",nil];
     
-//    self.navigationItem.title = @"Movies";
-//    self.navigationController.navigationBar.prefersLargeTitles = YES;
-    
-    
+
 }
+
+
 - (IBAction)showDetails:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Details" bundle:nil];
     DetailsViewController * detail = [storyboard instantiateInitialViewController];
@@ -38,5 +43,23 @@
 }
 
 
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [tableData count];
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    static NSString *cellID = @"CellID";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    
+    if (cell == nil) {
+           cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+       }
+    
+    return cell;
+}
 
 @end

@@ -9,11 +9,13 @@
 #import "ViewController.h"
 #import "DetailsViewController.h"
 #import <UIKit/UIKit.h>
+
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MainViewController : UIViewController
+@interface MainViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
-@property (weak, nonatomic) IBOutlet UITableView *tableview;
+@property (weak, nonatomic) IBOutlet UITableView *mainTableView;
 
 @end
 

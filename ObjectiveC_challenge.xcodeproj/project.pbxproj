@@ -92,8 +92,8 @@
 		8985AA7D24201EB8006A9003 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8AB9C9F0242003D700E2A14A /* Main.storyboard */,
 				8AB9C9F5242003DA00E2A14A /* LaunchScreen.storyboard */,
+				8AB9C9F0242003D700E2A14A /* Main.storyboard */,
 				8A1E261724214D49003131ED /* Details.storyboard */,
 			);
 			path = View;
