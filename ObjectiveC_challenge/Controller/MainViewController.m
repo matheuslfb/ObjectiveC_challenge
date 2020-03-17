@@ -7,7 +7,7 @@
 //
 
 #import "MainViewController.h"
-
+#import <UIKit/UIKit.h>
 @interface MainViewController ()
 
 @end
@@ -27,6 +27,14 @@
 //    self.navigationController.navigationBar.prefersLargeTitles = YES;
     
     
+}
+- (IBAction)showDetails:(id)sender {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Details" bundle:nil];
+    DetailsViewController * detail = [storyboard instantiateInitialViewController];
+//    detail.title = @"Movie Details";
+
+
+    [self showViewController:detail sender:self];
 }
 
 

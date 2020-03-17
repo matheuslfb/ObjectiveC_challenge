@@ -7,10 +7,9 @@
 //
 
 #import "DetailsViewController.h"
-
+#import <UIKit/UIKit.h>
 @interface DetailsViewController ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *image;
 
 
 @end
@@ -19,17 +18,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.navigationItem.title = @"LOL";
-    self.navigationController.title = @"EEEE";
-    self.title = @"AAAAAA";
-    
 //    [self setupPosterImageView];
+    self.title = @"Movie Details";
+    self.navigationController.navigationBar.prefersLargeTitles = NO;
+    [self setupPosterImageView];
 }
-
+//
 - (void) setupPosterImageView {
-    self.image.layer.cornerRadius = 5;
-    self.image.clipsToBounds = YES;
+    self.posterImageView.layer.cornerRadius = 10;
+    self.posterImageView.clipsToBounds = YES;
 }
     
 
