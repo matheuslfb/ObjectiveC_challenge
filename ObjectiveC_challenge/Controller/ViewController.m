@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "DetailsViewController.h"
 
 @interface ViewController ()
 
@@ -21,6 +22,19 @@
 
 NSString *base_url ;
 
+- (IBAction)showDetails:(id)sender {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MovieDetails" bundle:nil];
+    DetailsViewController * detail = [storyboard instantiateInitialViewController];
+    detail.title = @"Movie Details";
+    
+    
+    [self showViewController:detail sender:self];
+//    [self presentViewController:detail animated:YES completion:nil];
+    
+}
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -31,7 +45,7 @@ NSString *base_url ;
     
     
     self.view.backgroundColor = UIColor.blackColor;
-    [self fetchMovies];
+//    [self fetchMovies];
 }
 
 - (void) fetchMovies {
