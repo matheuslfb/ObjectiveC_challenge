@@ -43,8 +43,8 @@ NSString *base_url ;
     self.popularURL = @"https://api.themoviedb.org/3/movie/popular?api_key=";
     base_url = [NSString stringWithFormat: @"%@%@", _popularURL, _API_KEY, @"&language=en-US&page=1"];
     
-    
-    self.view.backgroundColor = UIColor.blackColor;
+//    
+//    self.view.backgroundColor = UIColor.blackColor;
 //    [self fetchMovies];
 }
 
