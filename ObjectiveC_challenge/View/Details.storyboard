@@ -25,33 +25,106 @@
                                             <constraint firstAttribute="width" constant="128" id="y6z-rL-Uh9"/>
                                         </constraints>
                                     </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fHl-DJ-mLV">
+                                        <rect key="frame" x="163" y="103" width="184" height="88"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Lion King" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2Q-TQ-1Ev">
+                                                <rect key="frame" x="0.0" y="0.0" width="184" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="184" id="tOa-IN-mbu"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adventure, Animation, Family, Drama, Action" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rz-3c-9f3">
+                                                <rect key="frame" x="0.0" y="29" width="184" height="41"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="184" id="I8v-Df-q3H"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="BbZ-Gn-12k">
+                                                <rect key="frame" x="0.0" y="75" width="37" height="13"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="U8A-Nc-pnk">
+                                                        <rect key="frame" x="0.0" y="0.0" width="13" height="13"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="13" id="KQ7-uZ-ITz"/>
+                                                            <constraint firstAttribute="width" constant="13" id="T3p-o9-6Os"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7.1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpi-Pu-uDW">
+                                                        <rect key="frame" x="18" y="0.0" width="19" height="13"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="dpi-Pu-uDW" firstAttribute="leading" secondItem="U8A-Nc-pnk" secondAttribute="trailing" constant="5" id="nLl-0W-DWj"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstItem="d1h-yM-ibf" firstAttribute="top" secondItem="2pI-q0-qJO" secondAttribute="top" constant="18" id="1GN-fX-aLS"/>
                                     <constraint firstAttribute="height" constant="230" id="1ZV-nq-luG"/>
+                                    <constraint firstItem="fHl-DJ-mLV" firstAttribute="leading" secondItem="d1h-yM-ibf" secondAttribute="trailing" constant="14" id="e2J-NW-sTt"/>
+                                    <constraint firstItem="fHl-DJ-mLV" firstAttribute="top" secondItem="2pI-q0-qJO" secondAttribute="top" constant="103" id="fOB-jJ-cik"/>
                                     <constraint firstItem="d1h-yM-ibf" firstAttribute="leading" secondItem="2pI-q0-qJO" secondAttribute="leading" constant="21" id="mQw-ic-2gM"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overview" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tgy-Hb-N2k">
+                                <rect key="frame" x="20" y="272" width="200" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="Yx9-L5-yes"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IZ0-Jd-E62">
+                                <rect key="frame" x="21" y="304.5" width="372" height="557.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="IZ0-Jd-E62" firstAttribute="leading" secondItem="s2E-KK-85q" secondAttribute="leading" constant="21" id="1tR-18-Y0o"/>
+                            <constraint firstItem="s2E-KK-85q" firstAttribute="trailing" secondItem="IZ0-Jd-E62" secondAttribute="trailing" constant="21" id="2Yh-6n-Lu4"/>
+                            <constraint firstItem="Tgy-Hb-N2k" firstAttribute="top" secondItem="s2E-KK-85q" secondAttribute="top" constant="228" id="3hW-Vh-Dac"/>
+                            <constraint firstItem="Tgy-Hb-N2k" firstAttribute="top" secondItem="2pI-q0-qJO" secondAttribute="top" constant="228" id="6JH-0L-xdg"/>
                             <constraint firstItem="2pI-q0-qJO" firstAttribute="top" secondItem="s2E-KK-85q" secondAttribute="top" id="bVd-6C-qvY"/>
                             <constraint firstItem="s2E-KK-85q" firstAttribute="trailing" secondItem="2pI-q0-qJO" secondAttribute="trailing" id="d54-ED-sD4"/>
                             <constraint firstItem="2pI-q0-qJO" firstAttribute="leading" secondItem="s2E-KK-85q" secondAttribute="leading" id="fTG-i1-GSf"/>
+                            <constraint firstItem="s2E-KK-85q" firstAttribute="bottom" secondItem="IZ0-Jd-E62" secondAttribute="bottom" id="jvz-Mu-6Cb"/>
+                            <constraint firstItem="IZ0-Jd-E62" firstAttribute="top" secondItem="Tgy-Hb-N2k" secondAttribute="bottom" constant="12" id="qFu-hH-Wz9"/>
+                            <constraint firstItem="Tgy-Hb-N2k" firstAttribute="leading" secondItem="s2E-KK-85q" secondAttribute="leading" constant="20" id="tJF-EG-hHW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="s2E-KK-85q"/>
                     </view>
                     <connections>
+                        <outlet property="overviewTextView" destination="IZ0-Jd-E62" id="65J-GT-WDm"/>
                         <outlet property="posterImageView" destination="d1h-yM-ibf" id="ZQ2-et-sSy"/>
+                        <outlet property="ratingLabel" destination="dpi-Pu-uDW" id="asa-bx-gGN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dqe-Gl-pUr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-106" y="134"/>
+            <point key="canvasLocation" x="-514.49275362318849" y="68.973214285714278"/>
         </scene>
     </scenes>
     <resources>
+        <image name="star" width="12" height="12"/>
         <image name="teste" width="250" height="375"/>
     </resources>
 </document>

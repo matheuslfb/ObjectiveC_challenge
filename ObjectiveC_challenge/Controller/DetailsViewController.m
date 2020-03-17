@@ -18,10 +18,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self setupPosterImageView];
-    self.title = @"Movie Details";
-    self.navigationController.navigationBar.prefersLargeTitles = NO;
     [self setupPosterImageView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {    self.title = @"Movie Details";
+    self.navigationController.navigationBar.prefersLargeTitles = NO;
 }
 //
 - (void) setupPosterImageView {
