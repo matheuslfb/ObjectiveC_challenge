@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-
+#import "DetailsViewController.h"
+#import <UIKit/UIKit.h>
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MainViewController : UIViewController
