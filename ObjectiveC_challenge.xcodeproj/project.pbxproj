@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		89EBE31A2420B32700B6AE26 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89EBE3192420B32700B6AE26 /* MainViewController.m */; };
 		8AB9C9E9242003D700E2A14A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9C9E8242003D700E2A14A /* AppDelegate.m */; };
 		8AB9C9EC242003D700E2A14A /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9C9EB242003D700E2A14A /* SceneDelegate.m */; };
 		8AB9C9EF242003D700E2A14A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9C9EE242003D700E2A14A /* ViewController.m */; };
@@ -19,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		89EBE3182420B32700B6AE26 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = ObjectiveC_challenge/Controller/MainViewController.h; sourceTree = SOURCE_ROOT; };
+		89EBE3192420B32700B6AE26 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = ObjectiveC_challenge/Controller/MainViewController.m; sourceTree = SOURCE_ROOT; };
 		8AB9C9E4242003D700E2A14A /* ObjectiveC_challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjectiveC_challenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB9C9E7242003D700E2A14A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8AB9C9E8242003D700E2A14A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -71,6 +74,8 @@
 			children = (
 				8AB9C9ED242003D700E2A14A /* ViewController.h */,
 				8AB9C9EE242003D700E2A14A /* ViewController.m */,
+				89EBE3182420B32700B6AE26 /* MainViewController.h */,
+				89EBE3192420B32700B6AE26 /* MainViewController.m */,
 				8AB9CA022420513E00E2A14A /* DetailsViewController.h */,
 				8AB9CA032420513E00E2A14A /* DetailsViewController.m */,
 			);
@@ -196,6 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AB9C9EF242003D700E2A14A /* ViewController.m in Sources */,
+				89EBE31A2420B32700B6AE26 /* MainViewController.m in Sources */,
 				8AB9CA042420513E00E2A14A /* DetailsViewController.m in Sources */,
 				8AB9C9E9242003D700E2A14A /* AppDelegate.m in Sources */,
 				8AB9C9FA242003DA00E2A14A /* main.m in Sources */,
