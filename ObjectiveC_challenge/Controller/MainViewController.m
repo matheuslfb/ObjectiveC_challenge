@@ -29,19 +29,20 @@
     // Do any additional setup after loading the view.
     tableData = [NSArray arrayWithObjects:@"Bateta", @"Luisa", @"Luna",nil];
     
-
 }
 
 
 - (IBAction)showDetails:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Details" bundle:nil];
     DetailsViewController * detail = [storyboard instantiateInitialViewController];
-
-
+    
+    
     [self showViewController:detail sender:self];
 }
 
-
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [tableData count];
@@ -55,8 +56,11 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     
     if (cell == nil) {
-           cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-       }
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        
+    }
+    
+    cell.textLabel.text = tableData[indexPath.row];
     
     return cell;
 }
