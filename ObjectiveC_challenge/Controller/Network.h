@@ -2,18 +2,25 @@
 //  Network.h
 //  ObjectiveC_challenge
 //
-//  Created by Ronald Maciel on 18/03/20.
+//  Created by Matheus Lima Ferreira on 3/18/20.
 //  Copyright © 2020 Matheus Lima Ferreira. All rights reserved.
 //
 
-#import "ViewController.h"
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Network : UIViewController
+@interface Network : NSObject
 
-@property (nonatomic) NSString *API_KEY;
-@property (nonatomic) NSString *popularURL;
+@property (strong, nonatomic) NSString *popular_url;
+@property (strong, nonatomic) NSString *now_playing_url;
+@property (strong, nonatomic) NSString *image_url;
+@property (strong, nonatomic) NSString *API_KEY ;
+
+- (instancetype) init;
+- (void) fetchPopularMovies;
+ 
+
 
 @end
 

@@ -2,65 +2,43 @@
 //  Network.m
 //  ObjectiveC_challenge
 //
-//  Created by Ronald Maciel on 18/03/20.
+//  Created by Matheus Lima Ferreira on 3/18/20.
 //  Copyright © 2020 Matheus Lima Ferreira. All rights reserved.
 //
 
 #import "Network.h"
-#import "DetailsViewController.h"
-
-@interface Network ()
-
-
-@end
 
 @implementation Network
 
-// url example: https://api.themoviedb.org/3/movie/550?api_key=6af6fb6deb5f2e4c6d36e514240eeebb
+//@"6af6fb6deb5f2e4c6d36e514240eeebb";
+//NSString *API_KEY =
 
-
-NSString *base_url ;
-
-- (IBAction)showDetails:(id)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MovieDetails" bundle:nil];
-    DetailsViewController * detail = [storyboard instantiateInitialViewController];
-    detail.title = @"Movie Details";
+- (instancetype)init {
     
+    self = [super init];
     
-    [self showViewController:detail sender:self];
-//    [self presentViewController:detail animated:YES completion:nil];
+    if (self) {
+        self.now_playing_url = @"https://api.themoviedb.org/3/movie/now_playing?";
+        self.popular_url =@"https://api.themoviedb.org/3/movie/now_playing?api_key=6af6fb6deb5f2e4c6d36e514240eeebb&language=en-US&page=1";
+        self.API_KEY =@"6af6fb6deb5f2e4c6d36e514240eeebb";
+    }
     
+    return self;
 }
 
-
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    self.API_KEY =  @"6af6fb6deb5f2e4c6d36e514240eeebb";
-    self.popularURL = @"https://api.themoviedb.org/3/movie/popular?api_key=";
-    base_url = [NSString stringWithFormat: @"%@%@", _popularURL, _API_KEY, @"&language=en-US&page=1"];
-    
-//
-//    self.view.backgroundColor = UIColor.blackColor;
-//    [self fetchMovies];
-}
-
-- (void) fetchMovies {
+- (void) fetchPopularMovies {
     NSLog(@"Fetching movies");
-    NSLog(base_url);
+    NSLog(_popular_url);
     
-    NSURL *url = [NSURL URLWithString: base_url];
+    NSURL *url = [NSURL URLWithString: _popular_url];
     
-  [  [NSURLSession.sharedSession dataTaskWithURL: url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-      NSLog(@"Finished fetching movies");
-      NSString *teste = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-      
-      NSLog(teste);
-  }] resume];
+    [  [NSURLSession.sharedSession dataTaskWithURL: url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSLog(@"Finished fetching movies");
+        NSString *teste = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        NSLog(teste);
+    }] resume];
     
 }
-
 
 @end

@@ -8,27 +8,27 @@
 
 #import "MainViewController.h"
 #import <UIKit/UIKit.h>
+#import "Network.h"
 
-
-@interface MainViewController ()
-
+@interface MainViewController (){
+    Network *network;
+}
 @end
-
-
-
 
 
 
 @implementation MainViewController {
     NSArray *tableData;
-    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    network = [[Network alloc] init];
+    
     // Do any additional setup after loading the view.
     tableData = [NSArray arrayWithObjects:@"Bateta", @"Luisa", @"Luna",nil];
-    
+   
+    [network fetchPopularMovies];
 }
 
 
