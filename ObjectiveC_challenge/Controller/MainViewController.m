@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "Network.h"
 #import "Movie.h"
+#import "MovieCell.h"
 
 @interface MainViewController (){
     Network *network;
@@ -30,20 +31,26 @@
     
     // Do any additional setup after loading the view.
     tableData = [NSArray arrayWithObjects:@"Bateta", @"Luisa", @"Luna",nil];
-   
-    dispatch_async(dispatch_get_main_queue(), ^{
-        _nowPlayingMovie = [network fetchPopularMovies];
-    });
     
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.popularMovies = [network fetchPopularMovies];
+        [self.mainTableView reloadData];
+    });
 }
 
-
 - (IBAction)showDetails:(id)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Details" bundle:nil];
-    DetailsViewController * detail = [storyboard instantiateInitialViewController];
+    //        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Details" bundle:nil];
+    //        DetailsViewController * detail = [storyboard instantiateInitialViewController];
+    //
+    //
+    //        [self showViewController:detail sender:self];
+    //
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _nowPlayingMovie = [network fetchPopularMovies];
+        [self.mainTableView reloadData];
+        //
+    });
     
-    
-    [self showViewController:detail sender:self];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -60,7 +67,12 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [tableData count];
+    if (section == 0) {
+        return 3;
+    } else if (section == 1) {
+        return 3;
+    }
+    return 10;
 }
 
 
@@ -68,14 +80,26 @@
     
     static NSString *cellID = @"CellID";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+    Movie *movie = self.nowPlayingMovie[indexPath.row];
     
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+    if (movie != nil) {
+        cell.title.text = movie.title;
+        cell.overview.text = movie.overview;
+            cell.rating.text = movie.rating.stringValue;
         
+        // image
+        NSLog(movie.imageUrl);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // https://image.tmdb.org/t/p/w500/
+            NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
+            NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
+
+            NSData *imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: imagePath]];
+            cell.poster.image = [UIImage imageWithData: imageData];
+            
+        });
     }
-    
-    cell.textLabel.text = tableData[indexPath.row];
     
     return cell;
 }

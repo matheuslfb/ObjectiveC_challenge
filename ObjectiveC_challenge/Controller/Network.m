@@ -20,7 +20,7 @@
     
     if (self) {
         self.now_playing_url = @"https://api.themoviedb.org/3/movie/now_playing?";
-        self.popular_url =@"https://api.themoviedb.org/3/movie/now_playing?api_key=6af6fb6deb5f2e4c6d36e514240eeebb";
+        self.popular_url= @"https://api.themoviedb.org/3/movie/now_playing?api_key=6af6fb6deb5f2e4c6d36e514240eeebb&language=en-US&page=1";
         self.API_KEY =@"6af6fb6deb5f2e4c6d36e514240eeebb";
     }
     
@@ -59,7 +59,6 @@
         self.popularMovies = NSMutableArray.new;
         
         NSArray *moviesArray = resultJSON[@"results"];
-//        NSLog(moviesArray);
         for (NSDictionary *movieDictionary in moviesArray) {
             Movie *movie = Movie.new;
             movie = [movie initWithDictionary:movieDictionary];

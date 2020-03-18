@@ -23,8 +23,8 @@
             
             self.title = title;
             self.overview = overview;
-//            self.rating = rating;
-//            self.imageUrl = imageUrl;
+            self.rating = rating;
+            self.imageUrl = imageUrl;
         }
         
         return self;

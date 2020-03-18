@@ -10,6 +10,7 @@
 		89EBE31A2420B32700B6AE26 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89EBE3192420B32700B6AE26 /* MainViewController.m */; };
 		8A1E261824214D4A003131ED /* Details.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A1E261724214D49003131ED /* Details.storyboard */; };
 		8A49A70D2422993F006FB1C9 /* Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A49A70C2422993F006FB1C9 /* Network.m */; };
+		8A49A7102422BD1A006FB1C9 /* MovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A49A70F2422BD1A006FB1C9 /* MovieCell.m */; };
 		8AB9C9E9242003D700E2A14A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9C9E8242003D700E2A14A /* AppDelegate.m */; };
 		8AB9C9EC242003D700E2A14A /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9C9EB242003D700E2A14A /* SceneDelegate.m */; };
 		8AB9C9F2242003D700E2A14A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AB9C9F0242003D700E2A14A /* Main.storyboard */; };
@@ -27,6 +28,8 @@
 		8A1E261724214D49003131ED /* Details.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Details.storyboard; sourceTree = "<group>"; };
 		8A49A70B2422993F006FB1C9 /* Network.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Network.h; path = ObjectiveC_challenge/Controller/Network.h; sourceTree = SOURCE_ROOT; };
 		8A49A70C2422993F006FB1C9 /* Network.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Network.m; path = ObjectiveC_challenge/Controller/Network.m; sourceTree = SOURCE_ROOT; };
+		8A49A70E2422BD1A006FB1C9 /* MovieCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieCell.h; sourceTree = "<group>"; };
+		8A49A70F2422BD1A006FB1C9 /* MovieCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieCell.m; sourceTree = "<group>"; };
 		8AB9C9E4242003D700E2A14A /* ObjectiveC_challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjectiveC_challenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB9C9E7242003D700E2A14A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8AB9C9E8242003D700E2A14A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -84,6 +87,8 @@
 				89EBE3192420B32700B6AE26 /* MainViewController.m */,
 				8AB9CA022420513E00E2A14A /* DetailsViewController.h */,
 				8AB9CA032420513E00E2A14A /* DetailsViewController.m */,
+				8A49A70E2422BD1A006FB1C9 /* MovieCell.h */,
+				8A49A70F2422BD1A006FB1C9 /* MovieCell.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -218,6 +223,7 @@
 				8AB9C9FA242003DA00E2A14A /* main.m in Sources */,
 				8A49A70D2422993F006FB1C9 /* Network.m in Sources */,
 				8AB9C9EC242003D700E2A14A /* SceneDelegate.m in Sources */,
+				8A49A7102422BD1A006FB1C9 /* MovieCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
