@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "Movie.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Network : NSObject
@@ -17,8 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *image_url;
 @property (strong, nonatomic) NSString *API_KEY ;
 
+
+@property (strong, nonatomic) NSMutableArray<Movie *> *popularMovies;
+
 - (instancetype) init;
-- (void) fetchPopularMovies;
+- (NSMutableArray*) fetchPopularMovies;
  
 
 

@@ -9,10 +9,13 @@
 #import "MainViewController.h"
 #import <UIKit/UIKit.h>
 #import "Network.h"
+#import "Movie.h"
 
 @interface MainViewController (){
     Network *network;
 }
+@property (strong, nonatomic) NSMutableArray<Movie *> *nowPlayingMovie;
+@property (strong, nonatomic) NSMutableArray<Movie *> *popularMovies;
 @end
 
 
@@ -28,7 +31,10 @@
     // Do any additional setup after loading the view.
     tableData = [NSArray arrayWithObjects:@"Bateta", @"Luisa", @"Luna",nil];
    
-    [network fetchPopularMovies];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _nowPlayingMovie = [network fetchPopularMovies];
+    });
+    
 }
 
 
