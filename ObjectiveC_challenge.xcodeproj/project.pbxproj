@@ -364,7 +364,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P7WV6D6894;
+				DEVELOPMENT_TEAM = ZJDDP65ZQ3;
 				INFOPLIST_FILE = ObjectiveC_challenge/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -381,7 +381,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P7WV6D6894;
+				DEVELOPMENT_TEAM = ZJDDP65ZQ3;
 				INFOPLIST_FILE = ObjectiveC_challenge/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

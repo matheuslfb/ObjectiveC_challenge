@@ -28,6 +28,9 @@
 
 NSString *cellID = @"CellID";
 
+NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
+NSCache<NSString*, UIImage *> *cache;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -88,6 +91,14 @@ NSString *cellID = @"CellID";
     return 10;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Details" bundle:nil];
+    DetailsViewController * detail = [storyboard instantiateInitialViewController];
+    
+    
+    [self showViewController:detail sender:self];
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -101,7 +112,33 @@ NSString *cellID = @"CellID";
             cell.overview.text = movie.overview;
             cell.rating.text = movie.rating.stringValue;
             // MARK: FALTA O POSTER.IMAGE PQ N TINHA A URL :D
+            //            dispatch_async(dispatch_get_main_queue(), ^{
+            // https://image.tmdb.org/t/p/w500/
             
+            NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
+            cache = [NSCache<NSString*, UIImage *> new];
+            
+            NSURL *url = [NSURL URLWithString:imagePath];
+            
+            UIImage *posterImage = [cache objectForKey:imagePath];
+            
+            if (posterImage == nil) {
+                [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                    if (error) {
+                        return;
+                    }
+                    UIImage *image = [UIImage imageWithData:data];
+                    [cache setObject: image forKey:imagePath];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        cell.poster.image = [cache objectForKey:imagePath];
+                    });
+                }] resume];
+                
+            } else {
+                cell.poster.image = [cache objectForKey:imagePath];
+            }
+            //            });
             
         }
         
@@ -116,14 +153,40 @@ NSString *cellID = @"CellID";
             
             // image
             //        NSLog(movie.imageUrl);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // https://image.tmdb.org/t/p/w500/
-                NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
-                NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
+            
+            NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
+            cache = [NSCache<NSString*, UIImage *> new];
+            
+            NSURL *url = [NSURL URLWithString:imagePath];
+            
+            UIImage *posterImage = [cache objectForKey:imagePath];
+            
+            if (posterImage == nil) {
+                [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                    if (error) {
+                        return;
+                    }
+                    UIImage *image = [UIImage imageWithData:data];
+                    [cache setObject: image forKey:imagePath];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        cell.poster.image = [cache objectForKey:imagePath];
+                    });
+                }] resume];
                 
-                NSData *imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: imagePath]];
-                cell.poster.image = [UIImage imageWithData: imageData];
-            });
+            } else {
+                cell.poster.image = [cache objectForKey:imagePath];
+            }
+            
+            
+            //            dispatch_async(dispatch_get_main_queue(), ^{
+            //                // https://image.tmdb.org/t/p/w500/
+            //                NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
+            //                NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
+            //
+            //                NSData *imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: imagePath]];
+            //                cell.poster.image = [UIImage imageWithData: imageData];
+            //            });
         }
     }
     
