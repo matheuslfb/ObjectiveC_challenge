@@ -119,20 +119,14 @@ NSCache<NSString*, UIImage *> *cache;
     //    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Details" bundle:nil];
     //    DetailsViewController *detail = [storyboard instantiateInitialViewController];
     if (indexPath.section == 0) {
-        
         Movie *selectedMovie = self.popularMovies[indexPath.row];
-        
         self.selectedMovie = selectedMovie;
-        
         [self performSegueWithIdentifier:@"detail" sender:nil];
         
     } else if (indexPath.section == 1) {
-        
         Movie *selectedMovie = self.nowPlayingMovie[indexPath.row];
         self.selectedMovie = selectedMovie;
-        
         [self performSegueWithIdentifier:@"detail" sender:nil];
-
     }
 }
 
@@ -152,6 +146,8 @@ NSCache<NSString*, UIImage *> *cache;
         Movie *movie = self.popularMovies[indexPath.row];
         
         if (movie != nil) {
+//            cell.separatorInset = UIEdgeInsetsMake(CGFLOAT_MAX, 0, 0, CGFLOAT_MAX);
+            
             cell.title.text = movie.title;
             cell.overview.text = movie.overview;
             cell.rating.text = movie.rating.stringValue;

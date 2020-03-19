@@ -179,6 +179,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="star" width="12" height="12"/>
+        <image name="star" width="16.5" height="16.5"/>
     </resources>
 </document>
