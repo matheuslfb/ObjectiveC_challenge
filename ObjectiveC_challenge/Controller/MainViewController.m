@@ -34,9 +34,12 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self.popularMovies = [self->network fetchPopularMovies];
-        //        self.nowPlayingMovie = [self->network fetchNowPlaying];
+        self.nowPlayingMovie = [self->network fetchNowPlaying];
         
         [self.mainTableView reloadData];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard:)];
+        [self.view addGestureRecognizer:tap];
     });
 }
 
@@ -50,6 +53,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         self->_popularMovies = [network fetchPopularMovies];
         self->_nowPlayingMovie = [network fetchPopularMovies];
+        
         [self.mainTableView reloadData];
         //
     });
@@ -85,10 +89,21 @@
     static NSString *cellID = @"CellID";
     
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
-    if (indexPath.section == 0) {
-//
-    } else if (indexPath.section == 1) {
     
+    if (indexPath.section == 0) {
+        Movie *movie = self.popularMovies[indexPath.row];
+        
+        if (movie != nil) {
+            cell.title.text = movie.title;
+            cell.overview.text = movie.overview;
+            cell.rating.text = movie.rating.stringValue;
+            // MARK: FALTA O POSTER.IMAGE PQ N TINHA A URL :D
+            
+            
+        }
+        
+    } else if (indexPath.section == 1) {
+        
         Movie *movie = self.nowPlayingMovie[indexPath.row];
         
         if (movie != nil) {
@@ -111,5 +126,12 @@
     
     return cell;
 }
+
+
+
+- (IBAction)hideKeyboard:(id)sender {
+    [self.view endEditing:YES];
+}
+
 
 @end
