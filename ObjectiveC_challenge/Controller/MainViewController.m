@@ -36,7 +36,7 @@ NSCache<NSString*, UIImage *> *cache;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.mainTableView.separatorColor = [UIColor clearColor];
     
     network = [[Network alloc] init];
     
@@ -96,17 +96,6 @@ NSCache<NSString*, UIImage *> *cache;
     return @"kkk";
 }
 
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
-//
-//    if (section == 0) {
-//        [headerView setBackgroundColor:[UIColor whiteColor]];
-//    } else {
-//        [headerView setBackgroundColor:[UIColor whiteColor]];
-//    }
-//
-//    return headerView;
-//}
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     view.tintColor = [UIColor whiteColor];
