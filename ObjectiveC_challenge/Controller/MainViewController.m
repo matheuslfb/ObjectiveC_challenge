@@ -66,6 +66,7 @@
     } else if (section == 1) {
         return @"Now Playing";
     }
+    
     return @"kkk";
 }
 
@@ -84,24 +85,28 @@
     static NSString *cellID = @"CellID";
     
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+    if (indexPath.section == 0) {
+//
+    } else if (indexPath.section == 1) {
     
-    Movie *movie = self.nowPlayingMovie[indexPath.row];
-    
-    if (movie != nil) {
-        cell.title.text = movie.title;
-        cell.overview.text = movie.overview;
-        cell.rating.text = movie.rating.stringValue;
+        Movie *movie = self.nowPlayingMovie[indexPath.row];
         
-        // image
-        //        NSLog(movie.imageUrl);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // https://image.tmdb.org/t/p/w500/
-            NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
-            NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
+        if (movie != nil) {
+            cell.title.text = movie.title;
+            cell.overview.text = movie.overview;
+            cell.rating.text = movie.rating.stringValue;
             
-            NSData *imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: imagePath]];
-            cell.poster.image = [UIImage imageWithData: imageData];
-        });
+            // image
+            //        NSLog(movie.imageUrl);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // https://image.tmdb.org/t/p/w500/
+                NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
+                NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
+                
+                NSData *imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: imagePath]];
+                cell.poster.image = [UIImage imageWithData: imageData];
+            });
+        }
     }
     
     return cell;
