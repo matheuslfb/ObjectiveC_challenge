@@ -72,4 +72,35 @@
     return _popularMovies;
 }
 
+- (NSMutableArray*) fetchNowPlaying {
+    self.nowPlaying = NSMutableArray.new;
+    
+    NSURL *url = [NSURL URLWithString:_now_playing_url];
+    
+    [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error){
+       
+        NSError *erro;
+        NSDictionary *resultJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&erro];
+        
+        if(erro) {
+            NSLog(@"Deu ruim. Data into JSON: %@", erro);
+            return;
+        }
+        
+        NSArray *moviesArray = resultJSON[@"result"];
+        
+        for(NSDictionary *moviesDict in moviesArray){
+            Movie *movie = Movie.new;
+            movie = [movie initWithDictionary:moviesDict];
+            
+            [self.nowPlaying addObject:movie];
+        }
+        
+    
+    } ] resume];
+    
+    
+    return _nowPlaying;
+}
+
 @end

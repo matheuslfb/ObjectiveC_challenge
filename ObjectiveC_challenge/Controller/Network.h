@@ -19,9 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @property (strong, nonatomic) NSMutableArray<Movie *> *popularMovies;
+@property (strong, nonatomic) NSMutableArray<Movie *> *nowPlaying;
 
 - (instancetype) init;
 - (NSMutableArray*) fetchPopularMovies;
+- (NSMutableArray*) fetchNowPlaying;
  
 
 
