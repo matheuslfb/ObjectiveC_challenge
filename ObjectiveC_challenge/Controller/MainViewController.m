@@ -14,23 +14,26 @@
 
 @interface MainViewController (){
     Network *network;
+    
 }
 @property (strong, nonatomic) NSMutableArray<Movie *> *popularMovies;
 @property (strong, nonatomic) NSMutableArray<Movie *> *nowPlayingMovie;
+
+
 @end
 
 
 
-@implementation MainViewController {
-    NSArray *tableData;
-}
+@implementation MainViewController
+
+NSString *cellID = @"CellID";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     network = [[Network alloc] init];
     
     // Do any additional setup after loading the view.
-    tableData = [NSArray arrayWithObjects:@"Bateta", @"Luisa", @"Luna",nil];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self.popularMovies = [self->network fetchPopularMovies];
@@ -38,9 +41,11 @@
         
         [self.mainTableView reloadData];
         
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard:)];
-        [self.view addGestureRecognizer:tap];
     });
+    
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard:)];
+    [self.view addGestureRecognizer:tap];
 }
 
 - (IBAction)showDetails:(id)sender {
@@ -51,8 +56,8 @@
     //        [self showViewController:detail sender:self];
     //
     dispatch_async(dispatch_get_main_queue(), ^{
-        self->_popularMovies = [network fetchPopularMovies];
-        self->_nowPlayingMovie = [network fetchPopularMovies];
+        self->_popularMovies = [self->network fetchPopularMovies];
+        self->_nowPlayingMovie = [self->network fetchPopularMovies];
         
         [self.mainTableView reloadData];
         //
@@ -85,8 +90,6 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    static NSString *cellID = @"CellID";
     
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
     
