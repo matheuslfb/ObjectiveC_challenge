@@ -15,8 +15,8 @@
 @interface MainViewController (){
     Network *network;
 }
-@property (strong, nonatomic) NSMutableArray<Movie *> *nowPlayingMovie;
 @property (strong, nonatomic) NSMutableArray<Movie *> *popularMovies;
+@property (strong, nonatomic) NSMutableArray<Movie *> *nowPlayingMovie;
 @end
 
 
@@ -33,7 +33,9 @@
     tableData = [NSArray arrayWithObjects:@"Bateta", @"Luisa", @"Luna",nil];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.popularMovies = [network fetchPopularMovies];
+        self.popularMovies = [self->network fetchPopularMovies];
+        //        self.nowPlayingMovie = [self->network fetchNowPlaying];
+        
         [self.mainTableView reloadData];
     });
 }
@@ -46,7 +48,8 @@
     //        [self showViewController:detail sender:self];
     //
     dispatch_async(dispatch_get_main_queue(), ^{
-        _nowPlayingMovie = [network fetchPopularMovies];
+        self->_popularMovies = [network fetchPopularMovies];
+        self->_nowPlayingMovie = [network fetchPopularMovies];
         [self.mainTableView reloadData];
         //
     });
@@ -68,9 +71,9 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 3;
+        return [self.popularMovies count];
     } else if (section == 1) {
-        return 3;
+        return [self.nowPlayingMovie count];
     }
     return 10;
 }
@@ -81,23 +84,23 @@
     static NSString *cellID = @"CellID";
     
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+    
     Movie *movie = self.nowPlayingMovie[indexPath.row];
     
     if (movie != nil) {
         cell.title.text = movie.title;
         cell.overview.text = movie.overview;
-            cell.rating.text = movie.rating.stringValue;
+        cell.rating.text = movie.rating.stringValue;
         
         // image
-        NSLog(movie.imageUrl);
+        //        NSLog(movie.imageUrl);
         dispatch_async(dispatch_get_main_queue(), ^{
             // https://image.tmdb.org/t/p/w500/
             NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
             NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
-
+            
             NSData *imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: imagePath]];
             cell.poster.image = [UIImage imageWithData: imageData];
-            
         });
     }
     
