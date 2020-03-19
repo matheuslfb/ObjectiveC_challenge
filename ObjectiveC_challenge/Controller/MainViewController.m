@@ -16,8 +16,11 @@
     Network *network;
     
 }
+
 @property (strong, nonatomic) NSMutableArray<Movie *> *popularMovies;
 @property (strong, nonatomic) NSMutableArray<Movie *> *nowPlayingMovie;
+
+@property (strong, nonatomic) Movie *selectedMovie;
 
 
 @end
@@ -33,6 +36,7 @@ NSCache<NSString*, UIImage *> *cache;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     
     network = [[Network alloc] init];
     
@@ -51,6 +55,15 @@ NSCache<NSString*, UIImage *> *cache;
     [self.view addGestureRecognizer:tap];
 }
 
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self.mainTableView reloadData];
+//    });
+
+//}
+
 - (IBAction)showDetails:(id)sender {
     //        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Details" bundle:nil];
     //        DetailsViewController * detail = [storyboard instantiateInitialViewController];
@@ -68,18 +81,38 @@ NSCache<NSString*, UIImage *> *cache;
     
 }
 
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return @"Popular";
+        return @"Popular Movies";
     } else if (section == 1) {
         return @"Now Playing";
     }
     
     return @"kkk";
+}
+
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
+//
+//    if (section == 0) {
+//        [headerView setBackgroundColor:[UIColor whiteColor]];
+//    } else {
+//        [headerView setBackgroundColor:[UIColor whiteColor]];
+//    }
+//
+//    return headerView;
+//}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    view.tintColor = [UIColor whiteColor];
+    
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    [header.textLabel setTextColor:[UIColor blackColor]];
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -91,12 +124,34 @@ NSCache<NSString*, UIImage *> *cache;
     return 10;
 }
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Details" bundle:nil];
-    DetailsViewController * detail = [storyboard instantiateInitialViewController];
     
+    //    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Details" bundle:nil];
+    //    DetailsViewController *detail = [storyboard instantiateInitialViewController];
+    if (indexPath.section == 0) {
+        
+        Movie *selectedMovie = self.popularMovies[indexPath.row];
+        
+        self.selectedMovie = selectedMovie;
+        
+        [self performSegueWithIdentifier:@"detail" sender:nil];
+        
+    } else if (indexPath.section == 1) {
+        
+        Movie *selectedMovie = self.nowPlayingMovie[indexPath.row];
+        self.selectedMovie = selectedMovie;
+        
+        [self performSegueWithIdentifier:@"detail" sender:nil];
+
+    }
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    DetailsViewController *movieDetail = [segue destinationViewController];
     
-    [self showViewController:detail sender:self];
+    [movieDetail configureWithMovie: self.selectedMovie];
 }
 
 
@@ -111,7 +166,6 @@ NSCache<NSString*, UIImage *> *cache;
             cell.title.text = movie.title;
             cell.overview.text = movie.overview;
             cell.rating.text = movie.rating.stringValue;
-            // MARK: FALTA O POSTER.IMAGE PQ N TINHA A URL :D
             //            dispatch_async(dispatch_get_main_queue(), ^{
             // https://image.tmdb.org/t/p/w500/
             

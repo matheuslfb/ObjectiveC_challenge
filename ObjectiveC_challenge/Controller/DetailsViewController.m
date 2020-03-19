@@ -19,9 +19,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupPosterImageView];
+    
+    self.titleMovie.text = self.titulo;
+    self.overviewTextView.text = self.overview;
+    self.ratingLabel.text = self.rating;
+    
+    
 }
 
-- (void)viewWillAppear:(BOOL)animated {    self.title = @"Movie Details";
+- (void)viewWillAppear:(BOOL)animated {
+    self.title = @"Movie Details";
     self.navigationController.navigationBar.prefersLargeTitles = NO;
 }
 //
@@ -31,7 +38,13 @@
 }
     
 
-
+- (void) configureWithMovie: (Movie *)movieDetail {
+    self.titulo = movieDetail.title;
+    self.overview = movieDetail.overview;
+    self.rating = movieDetail.rating.stringValue;
+//    self.image = movieDetail.?
+    
+}
 
 /*
 #pragma mark - Navigation

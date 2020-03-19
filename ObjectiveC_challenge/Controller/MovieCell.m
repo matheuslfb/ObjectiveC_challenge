@@ -17,7 +17,9 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    self.poster.layer.cornerRadius = 10;
+    self.poster.clipsToBounds = YES;
+    
     // Configure the view for the selected state
 }
 

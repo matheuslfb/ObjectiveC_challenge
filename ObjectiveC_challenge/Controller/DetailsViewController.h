@@ -7,17 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Movie.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 
 @interface DetailsViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UILabel *title;
+@property (weak, nonatomic) IBOutlet UILabel *titleMovie;
 @property (weak, nonatomic) IBOutlet UIImageView *posterImageView;
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UITextView *overviewTextView;
 
+@property (weak, nonatomic) UIImage *image;
+@property (weak, nonatomic) NSString *titulo;
+@property (weak, nonatomic) NSString *overview;
+@property (weak, nonatomic) NSString *rating;
+
+-(void) configureWithMovie:(Movie *) movieDetail;
 
 @end
 
