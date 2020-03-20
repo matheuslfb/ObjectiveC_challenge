@@ -58,26 +58,8 @@ NSCache<NSString*, UIImage *> *cache;
     }];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        
         [self.mainTableView reloadData];
-        
     });
-}
-
-- (IBAction)showDetails:(id)sender {
-    
-    
-    [network fetchMovies:POPULAR completion:^(NSMutableArray * movies) {
-        self->_popularMovies = movies;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [self.mainTableView reloadData];
-            
-        });
-        
-    }];
-    
 }
 
 
@@ -114,10 +96,12 @@ NSCache<NSString*, UIImage *> *cache;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSMutableArray<Movie*> *selectedMovieArray;
-    switch (indexPath.section) {
-        case 0: selectedMovieArray = self.popularMovies;
-        case 1: selectedMovieArray = self.nowPlayingMovies;
-    }
+    
+     if (indexPath.section == 0) {
+         selectedMovieArray = self.popularMovies;
+     }else {
+         selectedMovieArray = self.nowPlayingMovies;
+     }
 
     
     
