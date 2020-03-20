@@ -104,7 +104,7 @@ NSCache<NSString*, UIImage *> *cache;
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
-        case 0: return self.popularMovies.count;
+        case 0: return 2;
         case 1: return self.nowPlayingMovies.count;
     }
     return 0;
@@ -120,7 +120,7 @@ NSCache<NSString*, UIImage *> *cache;
         case 1: selectedMovieArray = self.nowPlayingMovies;
     }
     
-    Movie *selectedMovie = selectedMovieArray[indexPath.row];
+    Movie *selectedMovie = selectedMovieArray[indexPath.row + 1];
     
     
     [network fetchMovieDetails:selectedMovie.movieID completion:^(Movie * movieDetails) {

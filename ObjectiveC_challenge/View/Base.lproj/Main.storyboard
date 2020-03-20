@@ -15,28 +15,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHp-OB-0yy">
-                                <rect key="frame" x="348" y="114" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="showDetails:" destination="BYZ-38-t0r" eventType="touchUpInside" id="stU-zX-NaK"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movies" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hD-97-gHk">
-                                <rect key="frame" x="14" y="176" width="113.5" height="41"/>
+                                <rect key="frame" x="14" y="88" width="113.5" height="41"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="MSF-f6-twt">
-                                <rect key="frame" x="0.0" y="217" width="414" height="56"/>
+                                <rect key="frame" x="0.0" y="129" width="414" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="9KO-Bw-uqe"/>
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TBG-n5-QSf">
-                                <rect key="frame" x="0.0" y="273" width="414" height="589"/>
+                                <rect key="frame" x="0.0" y="185" width="414" height="677"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CellID" rowHeight="138" id="Oje-uM-YIU" userLabel="PopularMoviesTableViewCell" customClass="MovieCell">
@@ -124,17 +117,14 @@
                         <constraints>
                             <constraint firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0j3-Wg-ywV"/>
                             <constraint firstItem="MSF-f6-twt" firstAttribute="top" secondItem="0hD-97-gHk" secondAttribute="bottom" symbolic="YES" id="EPc-ST-mtX"/>
-                            <constraint firstItem="0hD-97-gHk" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="88" id="EnX-Pq-xD9"/>
+                            <constraint firstItem="0hD-97-gHk" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="EnX-Pq-xD9"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="TBG-n5-QSf" secondAttribute="bottom" id="JEY-bF-aLF"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FHp-OB-0yy" secondAttribute="trailing" constant="20" id="KPr-tu-UPn"/>
                             <constraint firstItem="0hD-97-gHk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="14" id="ONW-dL-cLg"/>
                             <constraint firstItem="TBG-n5-QSf" firstAttribute="top" secondItem="MSF-f6-twt" secondAttribute="bottom" symbolic="YES" id="RGM-Tc-dEU"/>
                             <constraint firstItem="TBG-n5-QSf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="RKj-kY-5BZ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TBG-n5-QSf" secondAttribute="trailing" id="Rj0-cY-G7E"/>
                             <constraint firstItem="MSF-f6-twt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="kXL-xW-4Zi"/>
-                            <constraint firstItem="FHp-OB-0yy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="348" id="pg6-YB-xws"/>
                             <constraint firstItem="MSF-f6-twt" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="rMh-VF-Sg9"/>
-                            <constraint firstItem="FHp-OB-0yy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="26" id="ttj-QG-uhJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0hD-97-gHk" secondAttribute="trailing" constant="286.5" id="vRz-cm-lxw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
