@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *overview;
 @property (strong, nonatomic) NSNumber *rating;
 @property (strong, nonatomic) NSString *imageUrl;
+@property (strong, nonatomic) NSString *movieID;
 
 -(id) initWithDictionary:(NSDictionary *) dictionary;
 

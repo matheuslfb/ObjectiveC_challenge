@@ -44,6 +44,7 @@
     self.rating = movieDetail.rating.stringValue;
 //    self.image = movieDetail.?
     
+    
 }
 
 /*

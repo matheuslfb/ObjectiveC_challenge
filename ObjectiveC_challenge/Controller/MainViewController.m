@@ -38,7 +38,7 @@ NSCache<NSString*, UIImage *> *cache;
     [super viewDidLoad];
     self.mainTableView.dataSource = self;
     self.mainTableView.delegate = self;
-        self.mainTableView.separatorColor = [UIColor clearColor];
+    self.mainTableView.separatorColor = [UIColor clearColor];
     
     network = [[Network alloc] init];
     
@@ -121,7 +121,13 @@ NSCache<NSString*, UIImage *> *cache;
     }
     
     Movie *selectedMovie = selectedMovieArray[indexPath.row];
-    self.selectedMovie = selectedMovie;
+    
+    
+    [network fetchMovieDetails:selectedMovie.movieID completion:^(Movie * movieDetails) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.selectedMovie = movieDetails;
+        });
+    }];
     [self performSegueWithIdentifier:@"detail" sender:nil];
 }
 
@@ -146,7 +152,7 @@ NSCache<NSString*, UIImage *> *cache;
             cell.title.text = movie.title;
             cell.overview.text = movie.overview;
             cell.rating.text = movie.rating.stringValue;
-        
+            
             // https://image.tmdb.org/t/p/w500/
             
             NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];

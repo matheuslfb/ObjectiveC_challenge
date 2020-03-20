@@ -27,6 +27,32 @@
     return self;
 }
 
+- (void) fetchMovieDetails:(NSString* )movieId completion:(void (^)(Movie*))callback {
+    NSString *baseURL = @"https://api.themoviedb.org/3/movie/";
+    NSString *concatString = [NSString stringWithFormat: @"%@%@?api_key=%@", baseURL,  movieId, _API_KEY];
+    NSURL *url = [NSURL URLWithString: concatString];
+    
+    [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(error){
+            NSLog(@"Request movie by ID error:", error);
+            return;
+        }
+        
+        @try {
+            NSError *err;
+            NSDictionary *resultJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&err];
+            
+            Movie *movie = Movie.new;
+            movie = [movie initWithDictionary:resultJSON];
+            
+            callback(movie);
+        } @catch (NSException *exception) {
+            NSLog(@"JSON Parse error: %@", exception);
+            return;
+        }
+    }]resume];
+}
+
 - (void) fetchMovies:(moviesCategory)moviesCategory completion: (void (^)(NSMutableArray*))callback {
     
     NSString *movies_GET_URL = [NSString alloc];
