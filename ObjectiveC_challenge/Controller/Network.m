@@ -27,80 +27,59 @@
     return self;
 }
 
-- (NSMutableArray*) fetchPopularMovies {
-    NSLog(@"Fetching movies");
-    NSLog(_popular_url);
+- (void) fetchMovies:(moviesCategory)moviesCategory completion: (void (^)(NSMutableArray*))callback {
     
+    NSString *movies_GET_URL = [NSString alloc];
     
-   NSLog(@"Fetching movies...");
+    if (moviesCategory == POPULAR) {
+        movies_GET_URL = @"https://api.themoviedb.org/3/movie/popular";
+    } else if (moviesCategory == NOW_PLAYING) {
+        movies_GET_URL = @"https://api.themoviedb.org/3/movie/now_playing";
+    }
     
-    NSURL *url = [NSURL URLWithString:_popular_url];
+    NSString *urlString = [NSString stringWithFormat: @"%@?api_key=%@", movies_GET_URL, _API_KEY];
+    NSURL *url = [NSURL URLWithString: urlString];
     
     [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
-        NSLog(@"Finished fetching Movies.");
-        
-        /// Uncomment these lines to se
-        /// the returned movies list printed
-        /// on console
-        /*
-        NSString *jsonResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"Response: %@", jsonResponse);
-        */
-        
-        NSError *err;
-        NSDictionary *resultJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&err];
-    
-        if (err) {
-            NSLog(@"Failed to serialize data into JSON: %@", err);
+        if (error) {
+            NSLog(@"Request error: %@", error);
             return;
         }
         
-        self.popularMovies = NSMutableArray.new;
-        
-        NSArray *moviesArray = resultJSON[@"results"];
-        for (NSDictionary *movieDictionary in moviesArray) {
-            Movie *movie = Movie.new;
-            movie = [movie initWithDictionary:movieDictionary];
+        @try {
             
-            [self.popularMovies addObject:movie];
+            // JSON Dictionary object array
+            NSError *err;
+            NSDictionary *resultJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&err];
             
+            
+            // Movie object array
+            NSMutableArray *movies = [[NSMutableArray alloc] init];
+            
+            NSArray *moviesArray = resultJSON[@"results"];
+            for (NSDictionary *movieDictionary in moviesArray) {
+                Movie *movie = Movie.new;
+                movie = [movie initWithDictionary:movieDictionary];
+                
+                [movies addObject:movie];
+                
+            }
+            
+            callback(movies);
         }
+        
+        @catch ( NSException *e ) {
+            NSLog(@"JSON Parse error: %@", e);
+            return;
+        }
+        
         
     }] resume];
     
-    return _popularMovies;
 }
 
-- (NSMutableArray*) fetchNowPlaying {
-    self.nowPlaying = NSMutableArray.new;
-    
-    NSURL *url = [NSURL URLWithString:_now_playing_url];
-    
-    [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error){
-       
-        NSError *erro;
-        NSDictionary *resultJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&erro];
-        
-        if(erro) {
-            NSLog(@"Deu ruim. Data into JSON: %@", erro);
-            return;
-        }
-        
-        NSArray *moviesArray = resultJSON[@"result"];
-        
-        for(NSDictionary *moviesDict in moviesArray){
-            Movie *movie = Movie.new;
-            movie = [movie initWithDictionary:moviesDict];
-            
-            [self.nowPlaying addObject:movie];
-        }
-        
-    
-    } ] resume];
-    
-    
-    return _nowPlaying;
-}
+
+
 
 @end

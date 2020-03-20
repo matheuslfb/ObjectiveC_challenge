@@ -36,48 +36,47 @@ NSCache<NSString*, UIImage *> *cache;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.mainTableView.separatorColor = [UIColor clearColor];
+    self.mainTableView.dataSource = self;
+    self.mainTableView.delegate = self;
+        self.mainTableView.separatorColor = [UIColor clearColor];
     
     network = [[Network alloc] init];
     
-    // Do any additional setup after loading the view.
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.popularMovies = [self->network fetchPopularMovies];
-        self.nowPlayingMovies = [self->network fetchNowPlaying];
-        
-        [self.mainTableView reloadData];
-        
-    });
-    
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard:)];
     [self.view addGestureRecognizer:tap];
+    
+    [self fetchMovies];
 }
 
-//- (void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
-//
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.mainTableView reloadData];
-//    });
-
-//}
-
-- (IBAction)showDetails:(id)sender {
-    //        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Details" bundle:nil];
-    //        DetailsViewController * detail = [storyboard instantiateInitialViewController];
-    //
-    //
-    //        [self showViewController:detail sender:self];
-    //
+-(void) fetchMovies {
+    [network fetchMovies:POPULAR completion:^(NSMutableArray * movies) {
+        self->_popularMovies = movies;
+    }];
+    
+    [network fetchMovies:NOW_PLAYING completion:^(NSMutableArray * movies) {
+        self->_nowPlayingMovies = movies;
+    }];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        self->_popularMovies = [self->network fetchPopularMovies];
-        self->_nowPlayingMovies = [self->network fetchPopularMovies];
         
         [self.mainTableView reloadData];
-        //
+        
     });
+}
+
+- (IBAction)showDetails:(id)sender {
+    
+    
+    [network fetchMovies:POPULAR completion:^(NSMutableArray * movies) {
+        self->_popularMovies = movies;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self.mainTableView reloadData];
+            
+        });
+        
+    }];
     
 }
 
@@ -85,10 +84,6 @@ NSCache<NSString*, UIImage *> *cache;
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
-
-
-
-
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
@@ -146,12 +141,12 @@ NSCache<NSString*, UIImage *> *cache;
         Movie *movie = self.popularMovies[indexPath.row];
         
         if (movie != nil) {
-//            cell.separatorInset = UIEdgeInsetsMake(CGFLOAT_MAX, 0, 0, CGFLOAT_MAX);
+            
             
             cell.title.text = movie.title;
             cell.overview.text = movie.overview;
             cell.rating.text = movie.rating.stringValue;
-            //            dispatch_async(dispatch_get_main_queue(), ^{
+        
             // https://image.tmdb.org/t/p/w500/
             
             NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
@@ -177,7 +172,7 @@ NSCache<NSString*, UIImage *> *cache;
             } else {
                 cell.poster.image = [cache objectForKey:imagePath];
             }
-            //            });
+            
             
         }
         
@@ -191,7 +186,6 @@ NSCache<NSString*, UIImage *> *cache;
             cell.rating.text = movie.rating.stringValue;
             
             // image
-            //        NSLog(movie.imageUrl);
             
             NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
             cache = [NSCache<NSString*, UIImage *> new];
@@ -216,22 +210,11 @@ NSCache<NSString*, UIImage *> *cache;
             } else {
                 cell.poster.image = [cache objectForKey:imagePath];
             }
-            
-            
-            //            dispatch_async(dispatch_get_main_queue(), ^{
-            //                // https://image.tmdb.org/t/p/w500/
-            //                NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
-            //                NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
-            //
-            //                NSData *imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: imagePath]];
-            //                cell.poster.image = [UIImage imageWithData: imageData];
-            //            });
         }
     }
     
     return cell;
 }
-
 
 
 - (IBAction)hideKeyboard:(id)sender {

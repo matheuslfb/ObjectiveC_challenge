@@ -18,14 +18,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *API_KEY ;
 
 
-@property (strong, nonatomic) NSMutableArray<Movie *> *popularMovies;
-@property (strong, nonatomic) NSMutableArray<Movie *> *nowPlaying;
-
 - (instancetype) init;
-- (NSMutableArray*) fetchPopularMovies;
-- (NSMutableArray*) fetchNowPlaying;
- 
 
+typedef enum moviesCategoryType {
+    POPULAR,
+    NOW_PLAYING
+} moviesCategory;
+
+- (void) fetchMovies:(moviesCategory)moviesCategory completion: (void (^)(NSMutableArray*))callback;
 
 @end
 
