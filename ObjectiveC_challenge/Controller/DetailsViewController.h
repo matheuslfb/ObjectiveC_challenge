@@ -19,10 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UITextView *overviewTextView;
 
-@property (weak, nonatomic) UIImage *image;
-@property (weak, nonatomic) NSString *titulo;
-@property (weak, nonatomic) NSString *overview;
-@property (weak, nonatomic) NSString *rating;
+@property (weak, nonatomic) NSString *imageURL;
+
+@property(nonatomic) Movie* movie;
+
 
 -(void) configureWithMovie:(Movie *) movieDetail;
 

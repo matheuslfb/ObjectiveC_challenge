@@ -87,7 +87,7 @@ NSCache<NSString*, UIImage *> *cache;
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
-        case 0: return @"Popular";
+        case 0: return @"Popular Movies";
         case 1: return @"Now Playing";
     }
     
@@ -113,29 +113,38 @@ NSCache<NSString*, UIImage *> *cache;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
-    NSMutableArray *selectedMovieArray;
+    NSMutableArray<Movie*> *selectedMovieArray;
     switch (indexPath.section) {
         case 0: selectedMovieArray = self.popularMovies;
         case 1: selectedMovieArray = self.nowPlayingMovies;
     }
+
     
-    Movie *selectedMovie = selectedMovieArray[indexPath.row + 1];
     
+    Movie *selectedMovie = selectedMovieArray[indexPath.row];
+    self.selectedMovie = selectedMovie;
     
-    [network fetchMovieDetails:selectedMovie.movieID completion:^(Movie * movieDetails) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.selectedMovie = movieDetails;
-        });
-    }];
     [self performSegueWithIdentifier:@"detail" sender:nil];
+    //
+    //    [network fetchMovieDetails:movieID completion:^(Movie * movieDetails) {
+    //        dispatch_async(dispatch_get_main_queue(), ^{
+    //            self.selectedMovie = Movie.new;
+    //            self.selectedMovie.title = movieDetails.title;
+    ////            self.selectedMovie = movieDetails;
+    //            NSInteger value = indexPath.row;
+    //            NSLog(@"%ld@", (long)value);
+    //            NSLog(self.selectedMovie.title);
+    ////            NSLog(self.selectedMovie.imageUrl);
+    //        });
+    //    }];
+    //    [self performSegueWithIdentifier:@"detail" sender:nil];
 }
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     DetailsViewController *movieDetail = [segue destinationViewController];
-    
-    [movieDetail configureWithMovie: self.selectedMovie];
+    movieDetail.movie = self.selectedMovie;
+    //    [movieDetail configureWithMovie: self.selectedMovie];
 }
 
 
