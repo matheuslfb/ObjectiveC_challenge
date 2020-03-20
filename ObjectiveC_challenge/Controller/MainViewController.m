@@ -18,7 +18,7 @@
 }
 
 @property (strong, nonatomic) NSMutableArray<Movie *> *popularMovies;
-@property (strong, nonatomic) NSMutableArray<Movie *> *nowPlayingMovie;
+@property (strong, nonatomic) NSMutableArray<Movie *> *nowPlayingMovies;
 
 @property (strong, nonatomic) Movie *selectedMovie;
 
@@ -44,7 +44,7 @@ NSCache<NSString*, UIImage *> *cache;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self.popularMovies = [self->network fetchPopularMovies];
-        self.nowPlayingMovie = [self->network fetchNowPlaying];
+        self.nowPlayingMovies = [self->network fetchNowPlaying];
         
         [self.mainTableView reloadData];
         
@@ -73,7 +73,7 @@ NSCache<NSString*, UIImage *> *cache;
     //
     dispatch_async(dispatch_get_main_queue(), ^{
         self->_popularMovies = [self->network fetchPopularMovies];
-        self->_nowPlayingMovie = [self->network fetchPopularMovies];
+        self->_nowPlayingMovies = [self->network fetchPopularMovies];
         
         [self.mainTableView reloadData];
         //
@@ -86,14 +86,17 @@ NSCache<NSString*, UIImage *> *cache;
     return 2;
 }
 
+
+
+
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return @"Popular Movies";
-    } else if (section == 1) {
-        return @"Now Playing";
+    switch (section) {
+        case 0: return @"Popular";
+        case 1: return @"Now Playing";
     }
     
-    return @"kkk";
+    return @"";
 }
 
 
@@ -105,29 +108,26 @@ NSCache<NSString*, UIImage *> *cache;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return [self.popularMovies count];
-    } else if (section == 1) {
-        return [self.nowPlayingMovie count];
+    switch (section) {
+        case 0: return self.popularMovies.count;
+        case 1: return self.nowPlayingMovies.count;
     }
-    return 10;
+    return 0;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Details" bundle:nil];
-    //    DetailsViewController *detail = [storyboard instantiateInitialViewController];
-    if (indexPath.section == 0) {
-        Movie *selectedMovie = self.popularMovies[indexPath.row];
-        self.selectedMovie = selectedMovie;
-        [self performSegueWithIdentifier:@"detail" sender:nil];
-        
-    } else if (indexPath.section == 1) {
-        Movie *selectedMovie = self.nowPlayingMovie[indexPath.row];
-        self.selectedMovie = selectedMovie;
-        [self performSegueWithIdentifier:@"detail" sender:nil];
+    
+    NSMutableArray *selectedMovieArray;
+    switch (indexPath.section) {
+        case 0: selectedMovieArray = self.popularMovies;
+        case 1: selectedMovieArray = self.nowPlayingMovies;
     }
+    
+    Movie *selectedMovie = selectedMovieArray[indexPath.row];
+    self.selectedMovie = selectedMovie;
+    [self performSegueWithIdentifier:@"detail" sender:nil];
 }
 
 
@@ -183,7 +183,7 @@ NSCache<NSString*, UIImage *> *cache;
         
     } else if (indexPath.section == 1) {
         
-        Movie *movie = self.nowPlayingMovie[indexPath.row];
+        Movie *movie = self.nowPlayingMovies[indexPath.row];
         
         if (movie != nil) {
             cell.title.text = movie.title;
