@@ -30,7 +30,7 @@
 		8A49A70C2422993F006FB1C9 /* Network.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Network.m; path = ObjectiveC_challenge/Controller/Network.m; sourceTree = SOURCE_ROOT; };
 		8A49A70E2422BD1A006FB1C9 /* MovieCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieCell.h; sourceTree = "<group>"; };
 		8A49A70F2422BD1A006FB1C9 /* MovieCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieCell.m; sourceTree = "<group>"; };
-		8AB9C9E4242003D700E2A14A /* ObjectiveC_challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjectiveC_challenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AB9C9E4242003D700E2A14A /* The Movie DB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Movie DB.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB9C9E7242003D700E2A14A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8AB9C9E8242003D700E2A14A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8AB9C9EA242003D700E2A14A /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
@@ -125,7 +125,7 @@
 		8AB9C9E5242003D700E2A14A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AB9C9E4242003D700E2A14A /* ObjectiveC_challenge.app */,
+				8AB9C9E4242003D700E2A14A /* The Movie DB.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -161,7 +161,7 @@
 			);
 			name = ObjectiveC_challenge;
 			productName = ObjectiveC_challenge;
-			productReference = 8AB9C9E4242003D700E2A14A /* ObjectiveC_challenge.app */;
+			productReference = 8AB9C9E4242003D700E2A14A /* The Movie DB.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -371,7 +371,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.developer.ObjectiveC-challenge";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "The Movie DB";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -388,7 +388,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.developer.ObjectiveC-challenge";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "The Movie DB";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

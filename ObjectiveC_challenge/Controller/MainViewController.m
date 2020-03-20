@@ -125,26 +125,12 @@ NSCache<NSString*, UIImage *> *cache;
     self.selectedMovie = selectedMovie;
     
     [self performSegueWithIdentifier:@"detail" sender:nil];
-    //
-    //    [network fetchMovieDetails:movieID completion:^(Movie * movieDetails) {
-    //        dispatch_async(dispatch_get_main_queue(), ^{
-    //            self.selectedMovie = Movie.new;
-    //            self.selectedMovie.title = movieDetails.title;
-    ////            self.selectedMovie = movieDetails;
-    //            NSInteger value = indexPath.row;
-    //            NSLog(@"%ld@", (long)value);
-    //            NSLog(self.selectedMovie.title);
-    ////            NSLog(self.selectedMovie.imageUrl);
-    //        });
-    //    }];
-    //    [self performSegueWithIdentifier:@"detail" sender:nil];
 }
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     DetailsViewController *movieDetail = [segue destinationViewController];
     movieDetail.movie = self.selectedMovie;
-    //    [movieDetail configureWithMovie: self.selectedMovie];
 }
 
 
