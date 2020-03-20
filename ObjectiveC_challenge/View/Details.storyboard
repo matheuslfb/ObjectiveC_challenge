@@ -114,6 +114,7 @@
                         <viewLayoutGuide key="safeArea" id="s2E-KK-85q"/>
                     </view>
                     <connections>
+                        <outlet property="genderListLabel" destination="3rz-3c-9f3" id="BR1-1L-iDG"/>
                         <outlet property="overviewTextView" destination="IZ0-Jd-E62" id="65J-GT-WDm"/>
                         <outlet property="posterImageView" destination="d1h-yM-ibf" id="ZQ2-et-sSy"/>
                         <outlet property="ratingLabel" destination="dpi-Pu-uDW" id="asa-bx-gGN"/>

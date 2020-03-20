@@ -43,9 +43,13 @@
             NSDictionary *resultJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&err];
             
             Movie *movie = Movie.new;
-            movie = [movie initWithDictionary:resultJSON];
+            movie = [movie initByID:resultJSON];
             
+           NSLog(@"ID DO MOVIE %@", movieId);
+            
+//            NSLog( @"%@", movie.genrerList.count);
             callback(movie);
+            
         } @catch (NSException *exception) {
             NSLog(@"JSON Parse error: %@", exception);
             return;

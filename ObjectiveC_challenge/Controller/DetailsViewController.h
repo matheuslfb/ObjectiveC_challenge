@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Movie.h"
-
+#import "Network.h"
 NS_ASSUME_NONNULL_BEGIN
 
 
@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *posterImageView;
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UITextView *overviewTextView;
+@property (weak, nonatomic) IBOutlet UILabel *genderListLabel;
 
 @property (weak, nonatomic) NSString *imageURL;
 

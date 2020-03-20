@@ -8,16 +8,20 @@
 
 #import "DetailsViewController.h"
 #import <UIKit/UIKit.h>
-@interface DetailsViewController ()
-
-
+#import "Network.h"
+@interface DetailsViewController () {
+    Network *network;
+}
 
 @end
 
 @implementation DetailsViewController
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    network = [[Network alloc] init];
     [self setupPosterImageView];
     [self configureWithMovie:self.movie];
 }
@@ -45,6 +49,9 @@
     
     NSLog(@"Will load image from url: %@", imageURL);
     
+    NSMutableArray<NSString*> *genrerList = NSMutableArray.new;
+    
+    NSMutableString* concatGenres = NSMutableString.new;
     
     dispatch_async(dispatch_get_global_queue(0,0), ^{
         
@@ -58,19 +65,26 @@
             self.posterImageView.image = image;
             
         });
+        
+        
     });
-//        [network fetchMovieDetails:movieID completion:^(Movie * movieDetails) {
-//               dispatch_async(dispatch_get_main_queue(), ^{
-//                   self.selectedMovie = Movie.new;
-//                   self.selectedMovie.title = movieDetails.title;
-//       //            self.selectedMovie = movieDetails;
-//                   NSInteger value = indexPath.row;
-//                   NSLog(@"%ld@", (long)value);
-//                   NSLog(self.selectedMovie.title);
-//       //            NSLog(self.selectedMovie.imageUrl);
-//               });
-//           }];
-//           [self performSegueWithIdentifier:@"detail" sender:nil];
+    [self->network fetchMovieDetails:movieDetail.movieID completion:^(Movie * movieDetails) {
+        
+        for (NSString *genre in movieDetails.genrerList) {
+            
+            [concatGenres appendFormat:@"%@, ", genre];
+        }  
+    }];
+    
+
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.genderListLabel.text = concatGenres;
+    });
+    
+    
+    
+    
 }
 
 /*
