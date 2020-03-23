@@ -15,9 +15,6 @@
 
 
 - (id)init {
-    
-//    self = [super init];
-    
     if (self = [super init]) {
         
         self.cache = [NSCache<NSString*, NSData *> new];
@@ -78,9 +75,9 @@
             Movie *movie = Movie.new;
             movie = [movie initByID:resultJSON];
             
-           NSLog(@"ID DO MOVIE %@", movieId);
+            NSLog(@"ID DO MOVIE %@", movieId);
             
-//            NSLog( @"%@", movie.genrerList.count);
+            //            NSLog( @"%@", movie.genrerList.count);
             callback(movie);
             
         } @catch (NSException *exception) {
@@ -89,6 +86,51 @@
         }
     }]resume];
 }
+
+
+-(void) fetchNowPlayingMoviesByPage:(NSNumber*) page completion: (void (^)(NSMutableArray*))callback {
+                            ///  https://api.themoviedb.org/3/movie/now_playing?api_key=6af6fb6deb5f2e4c6d36e514240eeebb&language=en-US&page=1
+    NSString* popularBaseURL = @"https://api.themoviedb.org/3/movie/now_playing?api_key=6af6fb6deb5f2e4c6d36e514240eeebb&language=en-US&page=";
+    NSString* fullURL = [NSString stringWithFormat:@"%@%@", popularBaseURL, page];
+    
+    
+    NSURL *url = [NSURL URLWithString:fullURL];
+    [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        if(error) {
+            NSLog(@"Request error: %@", error);
+            return ;
+        }
+        
+        @try {
+            
+            // JSON Dictionary object array
+            NSError *err;
+            NSDictionary *resultJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&err];
+            
+            
+            // Movie object array
+            NSMutableArray *movies = [[NSMutableArray alloc] init];
+            
+            NSArray *moviesArray = resultJSON[@"results"];
+            for (NSDictionary *movieDictionary in moviesArray) {
+                Movie *movie = Movie.new;
+                movie = [movie initWithDictionary:movieDictionary];
+                
+                [movies addObject:movie];
+                
+            }
+            
+            callback(movies);
+        }
+        
+        @catch ( NSException *e ) {
+            NSLog(@"JSON Parse error: %@", e);
+            return;
+        }
+    }]resume];
+}
+
 
 - (void) fetchMovies:(moviesCategory)moviesCategory completion: (void (^)(NSMutableArray*))callback {
     

@@ -75,7 +75,7 @@
         self.genderListLabel.text = concatGenres;
         
         // Remove the blank space and the comma of the last gender.
-        self.genderListLabel.text = [self.genderListLabel.text substringToIndex:[self.genderListLabel.text length] - 2];
+//        self.genderListLabel.text = [self.genderListLabel.text substringToIndex:[self.genderListLabel.text length] - 2];
     });
     
 }
