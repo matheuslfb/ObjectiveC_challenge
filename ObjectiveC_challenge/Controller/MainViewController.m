@@ -13,7 +13,7 @@
 #import "MovieCell.h"
 
 @interface MainViewController (){
-    Network *network;
+    Network *sharedNetwork ;
     
 }
 
@@ -32,7 +32,7 @@
 NSString *cellID = @"CellID";
 
 NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
-NSCache<NSString*, UIImage *> *cache;
+//NSCache<NSString*, UIImage *> *cache;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,7 +40,7 @@ NSCache<NSString*, UIImage *> *cache;
     self.mainTableView.delegate = self;
     self.mainTableView.separatorColor = [UIColor clearColor];
     
-    network = [[Network alloc] init];
+    sharedNetwork = [Network sharedNetworkInstance];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard:)];
     [self.view addGestureRecognizer:tap];
@@ -49,11 +49,11 @@ NSCache<NSString*, UIImage *> *cache;
 }
 
 -(void) fetchMovies {
-    [network fetchMovies:POPULAR completion:^(NSMutableArray * movies) {
+    [Network.sharedNetworkInstance fetchMovies:POPULAR completion:^(NSMutableArray * movies) {
         self->_popularMovies = movies;
     }];
     
-    [network fetchMovies:NOW_PLAYING completion:^(NSMutableArray * movies) {
+    [Network.sharedNetworkInstance fetchMovies:NOW_PLAYING completion:^(NSMutableArray * movies) {
         self->_nowPlayingMovies = movies;
     }];
     
@@ -135,24 +135,20 @@ NSCache<NSString*, UIImage *> *cache;
             // https://image.tmdb.org/t/p/w500/
             
             NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
-            cache = [NSCache<NSString*, UIImage *> new];
             
-            NSURL *url = [NSURL URLWithString:imagePath];
-            
-            UIImage *posterImage = [cache objectForKey:imagePath];
+            UIImage *posterImage = [UIImage imageWithData:[self->sharedNetwork.cache objectForKey:imagePath]];
             
             if (posterImage == nil) {
-                [network getImageFromUrl:imagePath completion:^(NSData * _Nonnull data) {
-                    UIImage *image = [UIImage imageWithData:data];
-                    [cache setObject:image forKey:imagePath];
+                [Network.sharedNetworkInstance getImageFromUrl:imagePath completion:^(NSData * _Nonnull data) {
+                    [self->sharedNetwork.cache setObject:data forKey:imagePath];
                 }];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    cell.poster.image = [cache objectForKey:imagePath];
+                    cell.poster.image = [UIImage imageWithData:[self->sharedNetwork.cache objectForKey:imagePath]];
                 });
                 
             } else {
-                cell.poster.image = [cache objectForKey:imagePath];
+                cell.poster.image = [UIImage imageWithData:[self->sharedNetwork.cache objectForKey:imagePath]];
             }
             
             
@@ -170,26 +166,20 @@ NSCache<NSString*, UIImage *> *cache;
             // image
             
             NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
-            cache = [NSCache<NSString*, UIImage *> new];
             
-            NSURL *url = [NSURL URLWithString:imagePath];
-            
-            UIImage *posterImage = [cache objectForKey:imagePath];
+            UIImage *posterImage = [UIImage imageWithData:[self->sharedNetwork.cache objectForKey:imagePath]];
             
             if (posterImage == nil) {
-                
-                
-                [network getImageFromUrl:imagePath completion:^(NSData * _Nonnull data) {
-                    UIImage *image = [UIImage imageWithData:data];
-                    [cache setObject:image forKey:imagePath];
+                [Network.sharedNetworkInstance getImageFromUrl:imagePath completion:^(NSData * _Nonnull data) {
+                    [self->sharedNetwork.cache setObject:data forKey:imagePath];
                 }];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    cell.poster.image = [cache objectForKey:imagePath];
+                    cell.poster.image = [UIImage imageWithData:[self->sharedNetwork.cache objectForKey:imagePath]];
                 });
                 
             } else {
-                cell.poster.image = [cache objectForKey:imagePath];
+                cell.poster.image = [UIImage imageWithData:[self->sharedNetwork.cache objectForKey:imagePath]];
             }
         }
     }

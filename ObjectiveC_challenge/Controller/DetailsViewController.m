@@ -8,10 +8,10 @@
 
 #import "DetailsViewController.h"
 #import <UIKit/UIKit.h>
-#import "Network.h"
+//#import "Network.h"
 @interface DetailsViewController () {
-    Network *network;
     UIImage *image;
+    Network *sharedNetwork ;
 }
 
 @end
@@ -22,9 +22,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    network = [[Network alloc] init];
     [self setupPosterImageView];
     [self configureWithMovie:self.movie];
+    
+    sharedNetwork = [Network sharedNetworkInstance];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -44,40 +46,34 @@
     self.ratingLabel.text = movieDetail.rating.stringValue;
     self.imageURL = movieDetail.imageUrl;
     
-    /// Loads cover
-    NSMutableString *baseImageUrl = [NSMutableString stringWithString:@"https://image.tmdb.org/t/p/w185"];
-    NSString *imageURL = [baseImageUrl stringByAppendingString:self.imageURL];
-
+    
+    ///Load genre list
     NSMutableString* concatGenres = NSMutableString.new;
-
-    
-    [network getImageFromUrl:imageURL completion:^(NSData * _Nonnull data) {
-        self->image = [UIImage imageWithData:data];
-        
-    }];
-    
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        
-//    });
-    
-    
-    [self->network fetchMovieDetails:movieDetail.movieID completion:^(Movie * movieDetails) {
-        
+    [Network.sharedNetworkInstance fetchMovieDetails:movieDetail.movieID completion:^(Movie * movieDetails) {
         for (NSString *genre in movieDetails.genrerList) {
-            
             [concatGenres appendFormat:@"%@, ", genre];
         }
     }];
     
+    /// Loads cover
+    NSMutableString *baseImageUrl = [NSMutableString stringWithString:@"https://image.tmdb.org/t/p/w185"];
+    NSString *imagePath = [baseImageUrl stringByAppendingString:self.imageURL];
+    
+    
+    UIImage *posterImage = [UIImage imageWithData:[self->sharedNetwork.cache objectForKey:imagePath]];
+    
+    if(posterImage == nil){
+        [Network.sharedNetworkInstance getImageFromUrl: imagePath completion:^(NSData * _Nonnull data) {
+            [self->sharedNetwork.cache setObject:data forKey:imagePath];
+            self->image = [UIImage imageWithData:data];
+        }];
+    }
     
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.posterImageView.image = self->image;
+        self.posterImageView.image = [UIImage imageWithData:[self->sharedNetwork.cache objectForKey:imagePath]];
         self.genderListLabel.text = concatGenres;
     });
-    
-    
-    
     
 }
 

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Movie.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Network : NSObject
@@ -17,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *image_url;
 @property (strong, nonatomic) NSString *API_KEY ;
 
++(id) sharedNetworkInstance;
+@property (nonatomic, retain) NSCache<NSString*, NSData *> *cache;
 
 - (instancetype) init;
 
@@ -25,10 +28,11 @@ typedef enum moviesCategoryType {
     NOW_PLAYING
 } moviesCategory;
 
-- (void) fetchMovies:(moviesCategory)moviesCategory completion: (void (^)(NSMutableArray*))callback;
 
+- (NSCache*) getCache;
+- (void) fetchMovies:(moviesCategory)moviesCategory completion: (void (^)(NSMutableArray*))callback;
 - (void) fetchMovieDetails:(NSString* )movieId completion:(void (^)(Movie*))callback;
--(void) getImageFromUrl: (NSString* ) imageURL completion:(void (^)(NSData*))callback;
+- (void) getImageFromUrl: (NSString* ) imageURL completion:(void (^)(NSData*))callback;
 @end
 
 NS_ASSUME_NONNULL_END
