@@ -67,7 +67,7 @@
     
     [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if(error){
-            NSLog(@"Request movie by ID error:", error);
+            NSLog(@"Request movie by ID error: %@", error);
             return;
         }
         
