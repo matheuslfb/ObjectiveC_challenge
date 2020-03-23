@@ -73,6 +73,9 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         self.posterImageView.image = [UIImage imageWithData:[self->sharedNetwork.cache objectForKey:imagePath]];
         self.genderListLabel.text = concatGenres;
+        
+        // Remove the blank space and the comma of the last gender.
+        self.genderListLabel.text = [self.genderListLabel.text substringToIndex:[self.genderListLabel.text length] - 2];
     });
     
 }
