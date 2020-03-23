@@ -40,10 +40,9 @@ NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
     self.mainTableView.delegate = self;
     self.mainTableView.separatorColor = [UIColor clearColor];
     
-    sharedNetwork = [Network sharedNetworkInstance];
+    self.searchBar.delegate = self;
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard:)];
-    [self.view addGestureRecognizer:tap];
+    sharedNetwork = [Network sharedNetworkInstance];
     
     [self fetchMovies];
 }
@@ -187,6 +186,7 @@ NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
     return cell;
 }
 
+<<<<<<< HEAD
 
 //- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 //    if (indexPath.row +1 == self.popularMovies.count) {
@@ -217,7 +217,9 @@ NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
 
 - (IBAction)hideKeyboard:(id)sender {
     [self.view endEditing:YES];
+=======
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+>>>>>>> 008b8210c76a974dd70643448524573cf64158b0
 }
-
-
 @end
