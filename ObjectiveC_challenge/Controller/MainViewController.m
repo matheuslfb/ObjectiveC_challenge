@@ -94,15 +94,15 @@ NSCache<NSString*, UIImage *> *cache;
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSLog(@"tap");
     NSMutableArray<Movie*> *selectedMovieArray;
     
-     if (indexPath.section == 0) {
-         selectedMovieArray = self.popularMovies;
-     }else {
-         selectedMovieArray = self.nowPlayingMovies;
-     }
-
+    if (indexPath.section == 0) {
+        selectedMovieArray = self.popularMovies;
+    }else {
+        selectedMovieArray = self.nowPlayingMovies;
+    }
+    
     
     
     Movie *selectedMovie = selectedMovieArray[indexPath.row];
@@ -142,17 +142,14 @@ NSCache<NSString*, UIImage *> *cache;
             UIImage *posterImage = [cache objectForKey:imagePath];
             
             if (posterImage == nil) {
-                [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                    if (error) {
-                        return;
-                    }
+                [network getImageFromUrl:imagePath completion:^(NSData * _Nonnull data) {
                     UIImage *image = [UIImage imageWithData:data];
-                    [cache setObject: image forKey:imagePath];
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        cell.poster.image = [cache objectForKey:imagePath];
-                    });
-                }] resume];
+                    [cache setObject:image forKey:imagePath];
+                }];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    cell.poster.image = [cache objectForKey:imagePath];
+                });
                 
             } else {
                 cell.poster.image = [cache objectForKey:imagePath];
@@ -180,17 +177,16 @@ NSCache<NSString*, UIImage *> *cache;
             UIImage *posterImage = [cache objectForKey:imagePath];
             
             if (posterImage == nil) {
-                [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                    if (error) {
-                        return;
-                    }
+                
+                
+                [network getImageFromUrl:imagePath completion:^(NSData * _Nonnull data) {
                     UIImage *image = [UIImage imageWithData:data];
-                    [cache setObject: image forKey:imagePath];
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        cell.poster.image = [cache objectForKey:imagePath];
-                    });
-                }] resume];
+                    [cache setObject:image forKey:imagePath];
+                }];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    cell.poster.image = [cache objectForKey:imagePath];
+                });
                 
             } else {
                 cell.poster.image = [cache objectForKey:imagePath];

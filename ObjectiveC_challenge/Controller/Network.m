@@ -27,6 +27,22 @@
     return self;
 }
 
+-(void) getImageFromUrl: (NSString* ) imageURL completion:(void (^)(NSData*))callback{
+    NSURL *imgURL = [NSURL URLWithString:imageURL];
+    
+    
+    
+    [[NSURLSession.sharedSession dataTaskWithURL:imgURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        if(!error) {
+            callback(data);
+        } else {
+            NSLog(@"Image fetch error: %@", error);
+        }
+        
+    }] resume];
+}
+
 - (void) fetchMovieDetails:(NSString* )movieId completion:(void (^)(Movie*))callback {
     NSString *baseURL = @"https://api.themoviedb.org/3/movie/";
     NSString *concatString = [NSString stringWithFormat: @"%@%@?api_key=%@", baseURL,  movieId, _API_KEY];

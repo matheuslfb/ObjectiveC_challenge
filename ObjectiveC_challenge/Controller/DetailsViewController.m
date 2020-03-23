@@ -11,6 +11,7 @@
 #import "Network.h"
 @interface DetailsViewController () {
     Network *network;
+    UIImage *image;
 }
 
 @end
@@ -46,39 +47,32 @@
     /// Loads cover
     NSMutableString *baseImageUrl = [NSMutableString stringWithString:@"https://image.tmdb.org/t/p/w185"];
     NSString *imageURL = [baseImageUrl stringByAppendingString:self.imageURL];
-    
-    NSLog(@"Will load image from url: %@", imageURL);
-    
-    NSMutableArray<NSString*> *genrerList = NSMutableArray.new;
-    
+
     NSMutableString* concatGenres = NSMutableString.new;
+
     
-    dispatch_async(dispatch_get_global_queue(0,0), ^{
+    [network getImageFromUrl:imageURL completion:^(NSData * _Nonnull data) {
+        self->image = [UIImage imageWithData:data];
         
-        NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: imageURL]];
-        
-        if ( data == nil ) return;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            UIImage *image = [UIImage imageWithData:data];
-            self.posterImageView.image = image;
-            
-        });
-        
-        
-    });
+    }];
+    
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        
+//    });
+    
+    
     [self->network fetchMovieDetails:movieDetail.movieID completion:^(Movie * movieDetails) {
         
         for (NSString *genre in movieDetails.genrerList) {
             
             [concatGenres appendFormat:@"%@, ", genre];
-        }  
+        }
     }];
     
-
-
+    
+    
     dispatch_async(dispatch_get_main_queue(), ^{
+        self.posterImageView.image = self->image;
         self.genderListLabel.text = concatGenres;
     });
     
