@@ -40,10 +40,9 @@ NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
     self.mainTableView.delegate = self;
     self.mainTableView.separatorColor = [UIColor clearColor];
     
-    sharedNetwork = [Network sharedNetworkInstance];
+    self.searchBar.delegate = self;
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard:)];
-    [self.view addGestureRecognizer:tap];
+    sharedNetwork = [Network sharedNetworkInstance];
     
     [self fetchMovies];
 }
@@ -187,10 +186,7 @@ NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
     return cell;
 }
 
-
-- (IBAction)hideKeyboard:(id)sender {
-    [self.view endEditing:YES];
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
 }
-
-
 @end

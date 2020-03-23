@@ -13,9 +13,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MainViewController: UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface MainViewController: UIViewController<UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *mainTableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 

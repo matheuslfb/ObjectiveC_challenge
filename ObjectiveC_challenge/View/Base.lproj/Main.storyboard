@@ -135,6 +135,7 @@
                     <navigationItem key="navigationItem" id="yov-fZ-iIB"/>
                     <connections>
                         <outlet property="mainTableView" destination="TBG-n5-QSf" id="rv1-5T-WKV"/>
+                        <outlet property="searchBar" destination="MSF-f6-twt" id="ZkI-1N-Q6E"/>
                         <segue destination="MdA-eS-g7w" kind="show" identifier="detail" id="th7-yr-Mch"/>
                     </connections>
                 </viewController>
