@@ -50,7 +50,7 @@
     ///Load genre list
     NSMutableString* concatGenres = NSMutableString.new;
     [Network.sharedNetworkInstance fetchMovieDetails:movieDetail.movieID completion:^(Movie * movieDetails) {
-        for (NSString *genre in movieDetails.genrerList) {
+        for (NSString *genre in movieDetails.genreList) {
             [concatGenres appendFormat:@"%@, ", genre];
         }
     }];

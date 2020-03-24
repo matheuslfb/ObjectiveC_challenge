@@ -46,12 +46,12 @@
     self.rating = rating;
     self.imageUrl = imageUrl;
     
-    self.genrerList = NSMutableArray.new;
+    self.genreList = NSMutableArray.new;
     
     NSMutableArray* genres = dictionary[@"genres"];
     for (NSDictionary *genreDictionary in genres) {
         NSString* genre =  genreDictionary[@"name"];
-        [self.genrerList addObject: genre];
+        [self.genreList addObject: genre];
         
     }
     return self;

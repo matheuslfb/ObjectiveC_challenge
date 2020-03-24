@@ -17,10 +17,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSNumber *rating;
 @property (strong, nonatomic) NSString *imageUrl;
 @property (strong, nonatomic) NSString *movieID;
-@property (nonatomic) NSMutableArray<NSString*> *genrerList;
+@property (nonatomic) NSMutableArray<NSString*> *genreList;
 
 -(id) initWithDictionary:(NSDictionary *) dictionary;
 -(id) initByID:(NSDictionary*) dictionary;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

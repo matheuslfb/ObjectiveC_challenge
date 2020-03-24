@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Movie.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MovieCell : UITableViewCell
@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *overview;
 @property (weak, nonatomic) IBOutlet UILabel *rating;
 
+
+-(void) configureWithMovie:(Movie*) movie;
 @end
 
 NS_ASSUME_NONNULL_END

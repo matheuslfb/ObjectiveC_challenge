@@ -30,8 +30,6 @@
 
 NSNumber *page;
 NSString *cellID = @"CellID";
-NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
-//NSCache<NSString*, UIImage *> *cache;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -124,52 +122,13 @@ NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
         Movie *movie = self.popularMovies[indexPath.row];
         
         if (movie != nil) {
-            
-            
-            cell.title.text = movie.title;
-            cell.overview.text = movie.overview;
-            cell.rating.text = movie.rating.stringValue;
-            
-            /// https://image.tmdb.org/t/p/w500/
-            
-            NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
-            
-            UIImage *posterImage = [Network.sharedNetworkInstance getLocalImage:imagePath];
-            
-            if (posterImage != nil) {
-                cell.poster.image = posterImage;
-            } else {
-                [Network.sharedNetworkInstance getImageFromUrl:imagePath completion:^(UIImage * _Nonnull image) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        cell.poster.image = image;
-                    });
-                }];
-            }
+            [cell configureWithMovie:movie];
         }
-        
     } else if (indexPath.section == 1) {
-        
         Movie *movie = self.nowPlayingMovies[indexPath.row];
         
         if (movie != nil) {
-            cell.title.text = movie.title;
-            cell.overview.text = movie.overview;
-            cell.rating.text = movie.rating.stringValue;
-            
-            /// Image
-            NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
-            
-            UIImage *posterImage = [Network.sharedNetworkInstance getLocalImage:imagePath];
-            
-            if (posterImage != nil) {
-                cell.poster.image = posterImage;
-            } else {
-                [Network.sharedNetworkInstance getImageFromUrl:imagePath completion:^(UIImage * _Nonnull image) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        cell.poster.image = image;
-                    });
-                }];
-            }
+            [cell configureWithMovie:movie];
         }
     }
     
