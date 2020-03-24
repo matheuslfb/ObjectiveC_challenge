@@ -201,7 +201,53 @@
     
 }
 
-
+- (void) fetchMovieByQuery: (NSString *)query: (int)page completion: (void (^)(NSMutableArray*))callback{
+    
+    NSString *baseURL = @"https://api.themoviedb.org/3/search/movie?";
+    NSString *concatString = [NSString stringWithFormat: @"%@api_key=%@&language=en-US&query=%@&page=%d",baseURL, _API_KEY, query, page];
+    
+    NSLog(@"%@", concatString);
+    NSURL *url = [NSURL URLWithString: concatString];
+    
+    [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    
+    if (error) {
+        NSLog(@"Request error: %@", error);
+        return;
+    }
+    
+    @try {
+        
+        // JSON Dictionary object array
+        NSError *err;
+        NSDictionary *resultJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&err];
+        
+        
+        // Movie object array
+        NSMutableArray *movies = [[NSMutableArray alloc] init];
+        
+        NSArray *moviesArray = resultJSON[@"results"];
+        
+        for (NSDictionary *movieDictionary in moviesArray) {
+            Movie *movie = Movie.new;
+            movie = [movie initWithDictionary:movieDictionary];
+            
+            [movies addObject:movie];
+            
+        }
+        
+        callback(movies);
+    }
+    
+    @catch ( NSException *e ) {
+        NSLog(@"JSON Parse error: %@", e);
+        return;
+    }
+        
+    }] resume];
+    
+    
+}
 
 
 @end

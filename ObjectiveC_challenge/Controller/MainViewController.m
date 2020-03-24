@@ -13,7 +13,9 @@
 #import "MovieCell.h"
 
 @interface MainViewController (){
-    Network *sharedNetwork ;
+    Network *sharedNetwork;
+    NSMutableArray *filteredMovies;
+    BOOL isFiltered;
 }
 
 @property (strong, nonatomic) NSMutableArray<Movie *> *popularMovies;
@@ -37,11 +39,19 @@ bool hasMoreMovies = NO;
     self.mainTableView.delegate = self;
     self.mainTableView.separatorColor = [UIColor clearColor];
     
+    /// Search
     self.searchBar.delegate = self;
+    isFiltered = NO;
     
     sharedNetwork = [Network sharedNetworkInstance];
     
     [self fetchMovies];
+//
+//    [Network.sharedNetworkInstance fetchMovieByQuery:@"Joker" :1 completion:^(NSMutableArray * movies) {
+//        NSLog(@"corona");
+//    }];
+    
+    
     
 }
 
@@ -69,7 +79,11 @@ bool hasMoreMovies = NO;
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    if (isFiltered) {
+        return 1;
+    } else {
+        return 2;
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -84,7 +98,7 @@ bool hasMoreMovies = NO;
 -(void) fetchMoreNowPlayingMovies{
     [Network.sharedNetworkInstance fetchNowPlayingMoviesByPage: self.page completion:^(NSMutableArray * _Nonnull movies) {
         NSLog(@"---- did fetch more now playing");
-        [ self->_nowPlayingMovies addObjectsFromArray: movies] ;
+        [ self->_nowPlayingMovies addObjectsFromArray: movies];
         NSLog(@"%i", (int)self->_page);
         hasMoreMovies = NO;
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -119,12 +133,18 @@ bool hasMoreMovies = NO;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    switch (section) {
-        case 0: return 2;
-        case 1: return self.nowPlayingMovies.count;
-            
+    
+    if (isFiltered) {
+        return filteredMovies.count;
+    } else {
+        switch (section) {
+            case 0: return 2;
+            case 1: return self.nowPlayingMovies.count;
+                
+        }
     }
     return 0;
+    
 }
 
 
@@ -173,11 +193,32 @@ bool hasMoreMovies = NO;
     return cell;
 }
 
-- (IBAction)hideKeyboard:(id)sender {
-    [self.view endEditing:YES];
-}
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    [searchBar resignFirstResponder];
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    
+    if (searchText.length == 0) {
+
+        isFiltered = NO;
+    } else {
+        isFiltered = YES;
+        filteredMovies = NSMutableArray.new;
+        
+        [Network.sharedNetworkInstance fetchMovieByQuery:searchText :self.page completion:^(NSMutableArray * movies) {
+            
+            [self->filteredMovies addObjectsFromArray: movies];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self->_mainTableView reloadData];
+            });
+            
+            
+        }];
+        
+        
+        
+        
+        
+    }
+    
     
 }
 

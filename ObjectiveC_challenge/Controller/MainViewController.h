@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UITableView *mainTableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+
+
 -(void) fetchMovies;
 -(void) fetchMoreNowPlayingMovies;
 

@@ -32,10 +32,13 @@ typedef enum moviesCategoryType {
 
 - (void) fetchMovies:(moviesCategory)moviesCategory completion: (void (^)(NSMutableArray*))callback;
 - (void) fetchMovieDetails:(NSString* )movieId completion:(void (^)(Movie*))callback;
--(void) fetchNowPlayingMoviesByPage:(int) page completion: (void (^)(NSMutableArray*))callback;
--(UIImage*) getLocalImage:(NSString *) path;
+- (void) fetchNowPlayingMoviesByPage:(int) page completion: (void (^)(NSMutableArray*))callback;
+- (UIImage*) getLocalImage:(NSString *) path;
 
--(void) getImageFromUrl:(NSString *)imageURL completion:(void (^)(UIImage * _Nonnull))callback;
+- (void) getImageFromUrl:(NSString *)imageURL completion:(void (^)(UIImage * _Nonnull))callback;
+
+- (void) fetchMovieByQuery: (NSString *)query: (int)page completion: (void (^)(NSMutableArray*))callback;
+
 @end
 
 NS_ASSUME_NONNULL_END
