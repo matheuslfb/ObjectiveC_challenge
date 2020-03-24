@@ -17,7 +17,7 @@
 - (id)init {
     if (self = [super init]) {
         
-        self.cache = [NSCache<NSString*, NSData *> new];
+        self.cache = [NSCache<NSString*, UIImage *> new];
         
         self.now_playing_url = @"https://api.themoviedb.org/3/movie/now_playing?";
         self.popular_url= @"https://api.themoviedb.org/3/movie/now_playing?api_key=6af6fb6deb5f2e4c6d36e514240eeebb&language=en-US&page=1";
@@ -27,9 +27,6 @@
     return self;
 }
 
-- (NSCache*) getCache {
-    return self.cache;
-}
 
 +(id) sharedNetworkInstance {
     static Network *sharedNetworkInstance = nil;
@@ -43,18 +40,41 @@
 
 
 
--(void) getImageFromUrl: (NSString* ) imageURL completion:(void (^)(NSData*))callback{
+//-(void) getImageFromUrl: (NSString* ) imageURL completion:(void (^)(NSData*))callback{
+//    NSURL *imgURL = [NSURL URLWithString:imageURL];
+//
+//    [[NSURLSession.sharedSession dataTaskWithURL:imgURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//
+//        if(!error) {
+//            callback(data);
+//        } else {
+//            NSLog(@"Image fetch error: %@", error);
+//        }
+//
+//    }] resume];
+//}
+
+-(void) getImageFromUrl:(NSString *)imageURL completion:(void (^)(UIImage *))callback {
     NSURL *imgURL = [NSURL URLWithString:imageURL];
     
     [[NSURLSession.sharedSession dataTaskWithURL:imgURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
-        if(!error) {
-            callback(data);
-        } else {
-            NSLog(@"Image fetch error: %@", error);
+       if(error) {
+            NSLog(@"Request error: %@", error);
+            return ;
         }
         
-    }] resume];
+        UIImage *image = [UIImage imageWithData:data];
+    
+        [self->_cache setObject:image forKey:imageURL];
+        callback(image);
+    }]resume];
+}
+
+-(UIImage*) getLocalImage:(NSString *) path{
+    UIImage *image = [_cache objectForKey:path];
+    
+    return image;
 }
 
 - (void) fetchMovieDetails:(NSString* )movieId completion:(void (^)(Movie*))callback {
@@ -75,9 +95,6 @@
             Movie *movie = Movie.new;
             movie = [movie initByID:resultJSON];
             
-            NSLog(@"ID DO MOVIE %@", movieId);
-            
-            //            NSLog( @"%@", movie.genrerList.count);
             callback(movie);
             
         } @catch (NSException *exception) {
@@ -89,7 +106,7 @@
 
 
 -(void) fetchNowPlayingMoviesByPage:(NSNumber*) page completion: (void (^)(NSMutableArray*))callback {
-                            ///  https://api.themoviedb.org/3/movie/now_playing?api_key=6af6fb6deb5f2e4c6d36e514240eeebb&language=en-US&page=1
+    ///  https://api.themoviedb.org/3/movie/now_playing?api_key=6af6fb6deb5f2e4c6d36e514240eeebb&language=en-US&page=1
     NSString* popularBaseURL = @"https://api.themoviedb.org/3/movie/now_playing?api_key=6af6fb6deb5f2e4c6d36e514240eeebb&language=en-US&page=";
     NSString* fullURL = [NSString stringWithFormat:@"%@%@", popularBaseURL, page];
     

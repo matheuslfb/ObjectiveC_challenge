@@ -93,7 +93,6 @@ NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"tap");
     NSMutableArray<Movie*> *selectedMovieArray;
     
     if (indexPath.section == 0) {
@@ -131,26 +130,21 @@ NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
             cell.overview.text = movie.overview;
             cell.rating.text = movie.rating.stringValue;
             
-            // https://image.tmdb.org/t/p/w500/
+            /// https://image.tmdb.org/t/p/w500/
             
             NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
             
-            UIImage *posterImage = [UIImage imageWithData:[self->sharedNetwork.cache objectForKey:imagePath]];
+            UIImage *posterImage = [Network.sharedNetworkInstance getLocalImage:imagePath];
             
-            if (posterImage == nil) {
-                [Network.sharedNetworkInstance getImageFromUrl:imagePath completion:^(NSData * _Nonnull data) {
-                    [self->sharedNetwork.cache setObject:data forKey:imagePath];
-                }];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    cell.poster.image = [UIImage imageWithData:[self->sharedNetwork.cache objectForKey:imagePath]];
-                });
-                
+            if (posterImage != nil) {
+                cell.poster.image = posterImage;
             } else {
-                cell.poster.image = [UIImage imageWithData:[self->sharedNetwork.cache objectForKey:imagePath]];
+                [Network.sharedNetworkInstance getImageFromUrl:imagePath completion:^(UIImage * _Nonnull image) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        cell.poster.image = image;
+                    });
+                }];
             }
-            
-            
         }
         
     } else if (indexPath.section == 1) {
@@ -162,23 +156,19 @@ NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
             cell.overview.text = movie.overview;
             cell.rating.text = movie.rating.stringValue;
             
-            // image
-            
+            /// Image
             NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
             
-            UIImage *posterImage = [UIImage imageWithData:[self->sharedNetwork.cache objectForKey:imagePath]];
+            UIImage *posterImage = [Network.sharedNetworkInstance getLocalImage:imagePath];
             
-            if (posterImage == nil) {
-                [Network.sharedNetworkInstance getImageFromUrl:imagePath completion:^(NSData * _Nonnull data) {
-                    [self->sharedNetwork.cache setObject:data forKey:imagePath];
-                }];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    cell.poster.image = [UIImage imageWithData:[self->sharedNetwork.cache objectForKey:imagePath]];
-                });
-                
+            if (posterImage != nil) {
+                cell.poster.image = posterImage;
             } else {
-                cell.poster.image = [UIImage imageWithData:[self->sharedNetwork.cache objectForKey:imagePath]];
+                [Network.sharedNetworkInstance getImageFromUrl:imagePath completion:^(UIImage * _Nonnull image) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        cell.poster.image = image;
+                    });
+                }];
             }
         }
     }
@@ -186,7 +176,7 @@ NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
     return cell;
 }
 
-<<<<<<< HEAD
+
 
 //- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 //    if (indexPath.row +1 == self.popularMovies.count) {
@@ -217,9 +207,10 @@ NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
 
 - (IBAction)hideKeyboard:(id)sender {
     [self.view endEditing:YES];
-=======
+}
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
->>>>>>> 008b8210c76a974dd70643448524573cf64158b0
+    
 }
+
 @end

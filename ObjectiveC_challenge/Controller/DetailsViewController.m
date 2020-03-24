@@ -60,22 +60,21 @@
     NSString *imagePath = [baseImageUrl stringByAppendingString:self.imageURL];
     
     
-    UIImage *posterImage = [UIImage imageWithData:[self->sharedNetwork.cache objectForKey:imagePath]];
+    UIImage *posterImage = [Network.sharedNetworkInstance getLocalImage:imagePath];
     
-    if(posterImage == nil){
-        [Network.sharedNetworkInstance getImageFromUrl: imagePath completion:^(NSData * _Nonnull data) {
-            [self->sharedNetwork.cache setObject:data forKey:imagePath];
-            self->image = [UIImage imageWithData:data];
+    if(posterImage != nil){
+        self.posterImageView.image = posterImage;
+    } else {
+        [Network.sharedNetworkInstance getImageFromUrl:imagePath completion:^(UIImage * _Nonnull image) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.posterImageView.image = image;
+            });
         }];
     }
     
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.posterImageView.image = [UIImage imageWithData:[self->sharedNetwork.cache objectForKey:imagePath]];
         self.genderListLabel.text = concatGenres;
-        
-        // Remove the blank space and the comma of the last gender.
-//        self.genderListLabel.text = [self.genderListLabel.text substringToIndex:[self.genderListLabel.text length] - 2];
     });
     
 }
