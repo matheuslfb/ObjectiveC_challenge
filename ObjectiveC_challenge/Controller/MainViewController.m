@@ -50,20 +50,11 @@ bool hasMoreMovies = NO;
     
     dispatch_group_enter(group);
     [Network.sharedNetworkInstance fetchMovies:POPULAR completion:^(NSMutableArray * movies) {
-        //        NSLog(@"---- did load popular");
         self->_popularMovies = movies;
         dispatch_group_leave(group);
     }];
     
     dispatch_group_enter(group);
-    
-    //    [Network.sharedNetworkInstance fetchMovies:NOW_PLAYING completion:^(NSMutableArray * movies) {
-    //        NSLog(@"---- did now playing");
-    //        self->_nowPlayingMovies = movies;
-    //        dispatch_group_leave(group);
-    //
-    //    }];
-    
     [Network.sharedNetworkInstance fetchNowPlayingMoviesByPage: self.page completion:^(NSMutableArray * _Nonnull movies) {
         self->_nowPlayingMovies = movies;
         dispatch_group_leave(group);
@@ -72,11 +63,8 @@ bool hasMoreMovies = NO;
     
     dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
     dispatch_async(dispatch_get_main_queue(), ^{
-        //        NSLog(@"---- did reload table");
         [self.mainTableView reloadData];
     });
-    
-    
 }
 
 
@@ -184,35 +172,6 @@ bool hasMoreMovies = NO;
     
     return cell;
 }
-
-
-
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (indexPath.row +1 == self.popularMovies.count) {
-//        NSLog(@"chegou no fim");
-//        int value = [page intValue];
-//        page = [NSNumber numberWithInt: value+1];
-//        [Network.sharedNetworkInstance fetchNowPlayingMoviesByPage:page completion:^(NSMutableArray * _Nonnull movies) {
-//            [self.popularMovies addObjectsFromArray:movies];
-//        }];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.mainTableView reloadData];
-//        });
-//    }
-//
-//    
-//}
-
-//-(void) tableViewDidEndDraggin {
-//    CGFloat offSetY = self.mainTableView.contentOffset.y;
-//    CGFloat contentHeight = self.mainTableView.contentSize.height;
-//    CGFloat height =  self.mainTableView.frame.size.height;
-//    
-//    if(offSetY > contentHeight - height) {
-//        // page += 1
-//        // fetchPopularMovie( page)
-//    }
-//}
 
 - (IBAction)hideKeyboard:(id)sender {
     [self.view endEditing:YES];
