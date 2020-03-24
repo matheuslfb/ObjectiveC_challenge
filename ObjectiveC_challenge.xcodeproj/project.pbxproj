@@ -11,6 +11,7 @@
 		8A1E261824214D4A003131ED /* Details.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A1E261724214D49003131ED /* Details.storyboard */; };
 		8A49A70D2422993F006FB1C9 /* Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A49A70C2422993F006FB1C9 /* Network.m */; };
 		8A49A7102422BD1A006FB1C9 /* MovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A49A70F2422BD1A006FB1C9 /* MovieCell.m */; };
+		8A6BB4E2242A724400073FC3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BB4E1242A724400073FC3 /* ViewController.swift */; };
 		8AB9C9E9242003D700E2A14A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9C9E8242003D700E2A14A /* AppDelegate.m */; };
 		8AB9C9EC242003D700E2A14A /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9C9EB242003D700E2A14A /* SceneDelegate.m */; };
 		8AB9C9F2242003D700E2A14A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AB9C9F0242003D700E2A14A /* Main.storyboard */; };
@@ -30,6 +31,8 @@
 		8A49A70C2422993F006FB1C9 /* Network.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Network.m; path = ObjectiveC_challenge/Controller/Network.m; sourceTree = SOURCE_ROOT; };
 		8A49A70E2422BD1A006FB1C9 /* MovieCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieCell.h; sourceTree = "<group>"; };
 		8A49A70F2422BD1A006FB1C9 /* MovieCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieCell.m; sourceTree = "<group>"; };
+		8A6BB4E0242A724400073FC3 /* ObjectiveC_challenge-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjectiveC_challenge-Bridging-Header.h"; sourceTree = "<group>"; };
+		8A6BB4E1242A724400073FC3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8AB9C9E4242003D700E2A14A /* The Movie DB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Movie DB.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB9C9E7242003D700E2A14A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8AB9C9E8242003D700E2A14A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -114,6 +117,31 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		8A6BB4DE242A720600073FC3 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				8A6BB4E3242A73B100073FC3 /* Model */,
+				8A6BB4DF242A721200073FC3 /* Controller */,
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
+		8A6BB4DF242A721200073FC3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8A6BB4E1242A724400073FC3 /* ViewController.swift */,
+				8A6BB4E0242A724400073FC3 /* ObjectiveC_challenge-Bridging-Header.h */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8A6BB4E3242A73B100073FC3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		8AB9C9DB242003D700E2A14A = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +161,7 @@
 		8AB9C9E6242003D700E2A14A /* ObjectiveC_challenge */ = {
 			isa = PBXGroup;
 			children = (
+				8A6BB4DE242A720600073FC3 /* Swift */,
 				8AB9CA05242051A600E2A14A /* Assets.xcassets */,
 				8985AA7924201C77006A9003 /* Networking */,
 				8985AA7C24201EB2006A9003 /* Model */,
@@ -175,6 +204,7 @@
 				TargetAttributes = {
 					8AB9C9E3242003D700E2A14A = {
 						CreatedOnToolsVersion = 11.3.1;
+						LastSwiftMigration = 1130;
 					};
 				};
 			};
@@ -215,6 +245,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A6BB4E2242A724400073FC3 /* ViewController.swift in Sources */,
 				89EBE31A2420B32700B6AE26 /* MainViewController.m in Sources */,
 				8AE3705924215AE300EA6622 /* Movie.m in Sources */,
 				8AE3705C2421644E00EA6622 /* Genre.m in Sources */,
@@ -363,6 +394,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZJDDP65ZQ3;
 				INFOPLIST_FILE = ObjectiveC_challenge/Support/Info.plist;
@@ -372,6 +404,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.developer.ObjectiveC-challenge";
 				PRODUCT_NAME = "The Movie DB";
+				SWIFT_OBJC_BRIDGING_HEADER = "ObjectiveC_challenge/Swift/Controller/ObjectiveC_challenge-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -380,6 +415,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZJDDP65ZQ3;
 				INFOPLIST_FILE = ObjectiveC_challenge/Support/Info.plist;
@@ -389,6 +425,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.developer.ObjectiveC-challenge";
 				PRODUCT_NAME = "The Movie DB";
+				SWIFT_OBJC_BRIDGING_HEADER = "ObjectiveC_challenge/Swift/Controller/ObjectiveC_challenge-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

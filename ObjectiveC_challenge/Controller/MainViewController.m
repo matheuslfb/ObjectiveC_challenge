@@ -19,17 +19,20 @@
 @property (strong, nonatomic) NSMutableArray<Movie *> *popularMovies;
 @property (strong, nonatomic) NSMutableArray<Movie *> *nowPlayingMovies;
 @property (strong, nonatomic) Movie *selectedMovie;
+
+@property (nonatomic) int page;
 @end
 
 
 @implementation MainViewController
 
-NSNumber *page;
+//NSNumber *page;
 NSString *cellID = @"CellID";
+bool hasMoreMovies = NO;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    page = @1;
+    self.page = 1;
     self.mainTableView.dataSource = self;
     self.mainTableView.delegate = self;
     self.mainTableView.separatorColor = [UIColor clearColor];
@@ -47,24 +50,29 @@ NSString *cellID = @"CellID";
     
     dispatch_group_enter(group);
     [Network.sharedNetworkInstance fetchMovies:POPULAR completion:^(NSMutableArray * movies) {
-        NSLog(@"---- did load popular");
+        //        NSLog(@"---- did load popular");
         self->_popularMovies = movies;
         dispatch_group_leave(group);
     }];
     
     dispatch_group_enter(group);
     
-    [Network.sharedNetworkInstance fetchMovies:NOW_PLAYING completion:^(NSMutableArray * movies) {
-        NSLog(@"---- did now playing");
+    //    [Network.sharedNetworkInstance fetchMovies:NOW_PLAYING completion:^(NSMutableArray * movies) {
+    //        NSLog(@"---- did now playing");
+    //        self->_nowPlayingMovies = movies;
+    //        dispatch_group_leave(group);
+    //
+    //    }];
+    
+    [Network.sharedNetworkInstance fetchNowPlayingMoviesByPage: self.page completion:^(NSMutableArray * _Nonnull movies) {
         self->_nowPlayingMovies = movies;
         dispatch_group_leave(group);
-        
     }];
     
     
     dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"---- did reload table");
+        //        NSLog(@"---- did reload table");
         [self.mainTableView reloadData];
     });
     
@@ -85,6 +93,21 @@ NSString *cellID = @"CellID";
     return @"";
 }
 
+-(void) fetchMoreNowPlayingMovies{
+    [Network.sharedNetworkInstance fetchNowPlayingMoviesByPage: self.page completion:^(NSMutableArray * _Nonnull movies) {
+        NSLog(@"---- did fetch more now playing");
+        [ self->_nowPlayingMovies addObjectsFromArray: movies] ;
+        NSLog(@"%i", (int)self->_page);
+        hasMoreMovies = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"---- did reload table");
+            [self.mainTableView reloadData];
+        });
+    }];
+    
+    
+}
+
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     view.tintColor = [UIColor whiteColor];
@@ -93,10 +116,25 @@ NSString *cellID = @"CellID";
     [header.textLabel setTextColor:[UIColor blackColor]];
 }
 
+///Pagination
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat offSetY = scrollView.contentOffset.y;
+    CGFloat maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
+    
+    
+    if (!hasMoreMovies && (maximumOffset - offSetY <= 20)) {
+        hasMoreMovies = YES;
+        self.page +=1;
+        
+        self.fetchMoreNowPlayingMovies;
+    }
+}
+
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0: return 2;
         case 1: return self.nowPlayingMovies.count;
+            
     }
     return 0;
 }

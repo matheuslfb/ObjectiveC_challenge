@@ -105,10 +105,10 @@
 }
 
 
--(void) fetchNowPlayingMoviesByPage:(NSNumber*) page completion: (void (^)(NSMutableArray*))callback {
+-(void) fetchNowPlayingMoviesByPage:(int) page completion: (void (^)(NSMutableArray*))callback {
     ///  https://api.themoviedb.org/3/movie/now_playing?api_key=6af6fb6deb5f2e4c6d36e514240eeebb&language=en-US&page=1
     NSString* popularBaseURL = @"https://api.themoviedb.org/3/movie/now_playing?api_key=6af6fb6deb5f2e4c6d36e514240eeebb&language=en-US&page=";
-    NSString* fullURL = [NSString stringWithFormat:@"%@%@", popularBaseURL, page];
+    NSString* fullURL = [NSString stringWithFormat:@"%@%d", popularBaseURL, page];
     
     
     NSURL *url = [NSURL URLWithString:fullURL];
