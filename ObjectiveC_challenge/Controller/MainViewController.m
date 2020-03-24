@@ -18,12 +18,8 @@
 
 @property (strong, nonatomic) NSMutableArray<Movie *> *popularMovies;
 @property (strong, nonatomic) NSMutableArray<Movie *> *nowPlayingMovies;
-
 @property (strong, nonatomic) Movie *selectedMovie;
-
-
 @end
-
 
 
 @implementation MainViewController
@@ -43,20 +39,36 @@ NSString *cellID = @"CellID";
     sharedNetwork = [Network sharedNetworkInstance];
     
     [self fetchMovies];
+    
 }
 
 -(void) fetchMovies {
+    dispatch_group_t group = dispatch_group_create();
+    
+    dispatch_group_enter(group);
     [Network.sharedNetworkInstance fetchMovies:POPULAR completion:^(NSMutableArray * movies) {
+        NSLog(@"---- did load popular");
         self->_popularMovies = movies;
+        dispatch_group_leave(group);
     }];
+    
+    dispatch_group_enter(group);
     
     [Network.sharedNetworkInstance fetchMovies:NOW_PLAYING completion:^(NSMutableArray * movies) {
+        NSLog(@"---- did now playing");
         self->_nowPlayingMovies = movies;
+        dispatch_group_leave(group);
+        
     }];
     
+    
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
     dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"---- did reload table");
         [self.mainTableView reloadData];
     });
+    
+    
 }
 
 
