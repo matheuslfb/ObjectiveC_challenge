@@ -14,6 +14,7 @@
 
 @interface MainViewController (){
     Network *sharedNetwork;
+    
     NSMutableArray *filteredMovies;
     BOOL isFiltered;
 }
@@ -181,13 +182,19 @@ bool hasMoreMovies = NO;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
-
+    Movie *movie = Movie.new;
+    
     if (indexPath.section == 0) {
-        Movie *movie = self.popularMovies[indexPath.row];
-        
-        if (movie != nil) {
-            [cell configureWithMovie:movie];
+        if (isFiltered && movie != nil) {
+            movie = self->filteredMovies[indexPath.row];
+        } else {
+            movie = self.popularMovies[indexPath.row];
         }
+        
+        
+//        if (movie != nil) {
+            [cell configureWithMovie:movie];
+//        }
     } else if (indexPath.section == 1) {
         Movie *movie = self.nowPlayingMovies[indexPath.row];
         
