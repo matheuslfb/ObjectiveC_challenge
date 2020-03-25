@@ -88,7 +88,12 @@ bool hasMoreMovies = NO;
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
-        case 0: return @"Popular Movies";
+        case 0:
+            if(!isFiltered){
+                return @"Popular Movies";
+            } else {
+                return @"";
+            }
         case 1: return @"Now Playing";
     }
     
@@ -143,6 +148,7 @@ bool hasMoreMovies = NO;
                 
         }
     }
+    
     return 0;
     
 }
@@ -175,7 +181,7 @@ bool hasMoreMovies = NO;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
-    
+
     if (indexPath.section == 0) {
         Movie *movie = self.popularMovies[indexPath.row];
         
@@ -196,11 +202,17 @@ bool hasMoreMovies = NO;
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     
     if (searchText.length == 0) {
-
         isFiltered = NO;
+        [filteredMovies removeAllObjects];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self->_mainTableView reloadData];
+        });
+        
     } else {
         isFiltered = YES;
         filteredMovies = NSMutableArray.new;
+        NSArray *searchResult = NSArray.new;
         
         [Network.sharedNetworkInstance fetchMovieByQuery:searchText :self.page completion:^(NSMutableArray * movies) {
             
@@ -210,16 +222,16 @@ bool hasMoreMovies = NO;
                 [self->_mainTableView reloadData];
             });
             
+            NSLog(@"CORINGA: %@", self->filteredMovies);
             
         }];
-        
-        
-        
         
         
     }
     
     
 }
+
+
 
 @end

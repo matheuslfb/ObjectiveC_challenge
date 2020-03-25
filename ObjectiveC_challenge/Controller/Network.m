@@ -206,7 +206,7 @@
     NSString *baseURL = @"https://api.themoviedb.org/3/search/movie?";
     NSString *concatString = [NSString stringWithFormat: @"%@api_key=%@&language=en-US&query=%@&page=%d",baseURL, _API_KEY, query, page];
     
-    NSLog(@"%@", concatString);
+    NSLog(@"concatString: %@", concatString);
     NSURL *url = [NSURL URLWithString: concatString];
     
     [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
