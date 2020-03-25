@@ -43,6 +43,7 @@ bool hasMoreMovies = NO;
     /// Search
     self.searchBar.delegate = self;
     isFiltered = NO;
+//    filteredMovies = NSMutableArray.new;
     
     sharedNetwork = [Network sharedNetworkInstance];
     
@@ -140,15 +141,21 @@ bool hasMoreMovies = NO;
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (isFiltered) {
-        return filteredMovies.count;
-    } else {
+//    if (isFiltered) {
+//        return filteredMovies.count;
+//    } else {
         switch (section) {
-            case 0: return 2;
-            case 1: return self.nowPlayingMovies.count;
+            case 0:
+                if (isFiltered) {
+                    return filteredMovies.count;
+                } else {
+                    return 2;
+                }
+            case 1:
+                return self.nowPlayingMovies.count;
                 
         }
-    }
+//    }
     
     return 0;
     
@@ -159,8 +166,12 @@ bool hasMoreMovies = NO;
     NSMutableArray<Movie*> *selectedMovieArray;
     
     if (indexPath.section == 0) {
-        selectedMovieArray = self.popularMovies;
-    }else {
+        if (isFiltered) {
+            selectedMovieArray = self->filteredMovies;
+        } else {
+            selectedMovieArray = self.popularMovies;
+        }
+    }else if (indexPath.section == 1){
         selectedMovieArray = self.nowPlayingMovies;
     }
     
@@ -169,7 +180,7 @@ bool hasMoreMovies = NO;
     Movie *selectedMovie = selectedMovieArray[indexPath.row];
     self.selectedMovie = selectedMovie;
     
-    [self performSegueWithIdentifier:@"detail" sender:nil];
+    [self performSegueWithIdentifier: @"detail" sender:nil];
 }
 
 
@@ -191,10 +202,8 @@ bool hasMoreMovies = NO;
             movie = self.popularMovies[indexPath.row];
         }
         
-        
-//        if (movie != nil) {
-            [cell configureWithMovie:movie];
-//        }
+        [cell configureWithMovie:movie];
+
     } else if (indexPath.section == 1) {
         Movie *movie = self.nowPlayingMovies[indexPath.row];
         
@@ -217,11 +226,16 @@ bool hasMoreMovies = NO;
         });
         
     } else {
+        
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector: @selector(reload) object:nil];
+        [self performSelector:@selector(reload) withObject:nil afterDelay:0.5];
+        
+        
         isFiltered = YES;
         filteredMovies = NSMutableArray.new;
-        NSArray *searchResult = NSArray.new;
+//        NSArray *searchResult = NSArray.new;
         
-        [Network.sharedNetworkInstance fetchMovieByQuery:searchText :self.page completion:^(NSMutableArray * movies) {
+        [Network.sharedNetworkInstance fetchMovieByQuery:searchText :self.page completion:^(NSMutableArray *movies) {
             
             [self->filteredMovies addObjectsFromArray: movies];
             
@@ -233,12 +247,16 @@ bool hasMoreMovies = NO;
             
         }];
         
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self->_mainTableView reloadData];
+        });
         
     }
     
-    
 }
 
-
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    isFiltered = YES;
+}
 
 @end
