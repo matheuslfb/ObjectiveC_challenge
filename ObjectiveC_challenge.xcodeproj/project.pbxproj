@@ -12,6 +12,7 @@
 		8A49A70D2422993F006FB1C9 /* Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A49A70C2422993F006FB1C9 /* Network.m */; };
 		8A49A7102422BD1A006FB1C9 /* MovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A49A70F2422BD1A006FB1C9 /* MovieCell.m */; };
 		8A6BB4E2242A724400073FC3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BB4E1242A724400073FC3 /* ViewController.swift */; };
+		8AAEBDEF242D0CC000688D6B /* swift.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AAEBDEE242D0CC000688D6B /* swift.storyboard */; };
 		8AB9C9E9242003D700E2A14A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9C9E8242003D700E2A14A /* AppDelegate.m */; };
 		8AB9C9EC242003D700E2A14A /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9C9EB242003D700E2A14A /* SceneDelegate.m */; };
 		8AB9C9F2242003D700E2A14A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AB9C9F0242003D700E2A14A /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 		8A49A70F2422BD1A006FB1C9 /* MovieCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieCell.m; sourceTree = "<group>"; };
 		8A6BB4E0242A724400073FC3 /* ObjectiveC_challenge-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjectiveC_challenge-Bridging-Header.h"; sourceTree = "<group>"; };
 		8A6BB4E1242A724400073FC3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8AAEBDEE242D0CC000688D6B /* swift.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = swift.storyboard; sourceTree = "<group>"; };
 		8AB9C9E4242003D700E2A14A /* The Movie DB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Movie DB.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB9C9E7242003D700E2A14A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8AB9C9E8242003D700E2A14A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 			children = (
 				8A6BB4E1242A724400073FC3 /* ViewController.swift */,
 				8A6BB4E0242A724400073FC3 /* ObjectiveC_challenge-Bridging-Header.h */,
+				8AAEBDEE242D0CC000688D6B /* swift.storyboard */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AAEBDEF242D0CC000688D6B /* swift.storyboard in Resources */,
 				8A1E261824214D4A003131ED /* Details.storyboard in Resources */,
 				8AB9C9F7242003DA00E2A14A /* LaunchScreen.storyboard in Resources */,
 				8AB9C9F2242003D700E2A14A /* Main.storyboard in Resources */,
