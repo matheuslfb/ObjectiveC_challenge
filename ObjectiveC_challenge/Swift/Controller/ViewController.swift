@@ -86,21 +86,18 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate  {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CellID") as? MovieCell else { return UITableViewCell()}
         
-//        guard let cell = (UITableViewCell.init(style: ., reuseIdentifier: "CellID")) as? MovieCell else { return UITableViewCell() }
-//        let cell = createCell()
+
         var movie = Movie()
         
         if indexPath.section == 0 {
             movie = self.popularMovies[indexPath.row]
-            cell.title?.text = movie.title
         } else if indexPath.section == 1 {
             movie = self.nowPlaying[indexPath.row]
-            cell.title?.text = movie.title
         }
         
      
         
-//        cell.configure(with: movie)
+        cell.configure(with: movie)
         return cell
     }
     
