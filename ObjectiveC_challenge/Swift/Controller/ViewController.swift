@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     
     var popularMovies: [Movie] = []
     var nowPlaying: [Movie] = []
+    var selectedMovie = Movie()
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -25,10 +26,10 @@ class ViewController: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-//        self.tableView.register(MovieCell.self, forCellReuseIdentifier: "CellID")
+        fetchMovies()
         
         configureSearchController()
-        fetchMovies()
+        
     }
     
     func configureSearchController() {
@@ -65,8 +66,6 @@ class ViewController: UIViewController {
                 self.tableView.reloadData()
             }
         }
-        
-        
     }
 }
 
@@ -86,7 +85,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate  {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CellID") as? MovieCell else { return UITableViewCell()}
         
-
         var movie = Movie()
         
         if indexPath.section == 0 {
@@ -94,8 +92,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate  {
         } else if indexPath.section == 1 {
             movie = self.nowPlaying[indexPath.row]
         }
-        
-     
         
         cell.configure(with: movie)
         return cell
@@ -121,6 +117,38 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate  {
             ""
         }
         return ""
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        
+        var movies: [Movie] = []
+        if indexPath.section == 0{
+            movies = self.popularMovies
+        } else if indexPath.section == 1 {
+            movies = self.nowPlaying
+        }
+        
+        selectedMovie = movies[indexPath.row]
+        
+        
+        var storyboard = UIStoryboard(name: "Details", bundle: nil)
+        guard let vc =  storyboard.instantiateViewController(identifier: "detail") as? DetailsViewController else { return }
+        
+        print(selectedMovie.title)
+        vc.configure(with: selectedMovie)
+        self.show(vc, sender: nil)
+//        self.performSegue(withIdentifier: "detail", sender: nil)
+        //        guard let vc = segue.destination as? DetailsViewController else { return }
+        //        self.show(vc, sender: nil)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let vc = segue.destination as? DetailsViewController else { return }
+        print(selectedMovie.title)
+        vc.movie = selectedMovie
+        //        vc.titleMovie?.text = selectedMovie.title
     }
     
 }
