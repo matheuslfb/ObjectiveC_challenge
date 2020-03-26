@@ -4,3 +4,4 @@
 
 #import "Network.h"
 #import "Movie.h"
+#import "MovieCell.h"

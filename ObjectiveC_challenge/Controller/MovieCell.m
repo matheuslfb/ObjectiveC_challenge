@@ -34,15 +34,15 @@ NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
     NSString *imagePath = [NSString stringWithFormat: @"%@%@", baseURL, movie.imageUrl];
     UIImage *posterImage = [Network.sharedNetworkInstance getLocalImage:imagePath];
     
-    if (posterImage != nil) {
-        self.poster.image = posterImage;
-    } else {
-        [Network.sharedNetworkInstance getImageFromUrl: imagePath completion:^(UIImage * _Nonnull image) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.poster.image = image;
-            });
-        }];
-    }
+//    if (posterImage != nil) {
+//        self.poster.image = posterImage;
+//    } else {
+//        [Network.sharedNetworkInstance getImageFromUrl: imagePath completion:^(UIImage * _Nonnull image) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                self.poster.image = image;
+//            });
+//        }];
+//    }
 }
 
 @end
