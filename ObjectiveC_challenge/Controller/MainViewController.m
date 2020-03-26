@@ -226,16 +226,15 @@ bool hasMoreMovies = NO;
         });
         
     } else {
-        
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector: @selector(reload) object:nil];
-        [self performSelector:@selector(reload) withObject:nil afterDelay:0.5];
-        
-        
         isFiltered = YES;
         filteredMovies = NSMutableArray.new;
 //        NSArray *searchResult = NSArray.new;
         
         [Network.sharedNetworkInstance fetchMovieByQuery:searchText :self.page completion:^(NSMutableArray *movies) {
+            
+            //
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector: @selector(reload) object:nil];
+            [self performSelector:@selector(reload) withObject:nil afterDelay:0.5];
             
             [self->filteredMovies addObjectsFromArray: movies];
             
