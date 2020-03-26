@@ -21,7 +21,6 @@
 		8AB9CA042420513E00E2A14A /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9CA032420513E00E2A14A /* DetailsViewController.m */; };
 		8AB9CA06242051A600E2A14A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AB9CA05242051A600E2A14A /* Assets.xcassets */; };
 		8AE3705924215AE300EA6622 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE3705824215AE300EA6622 /* Movie.m */; };
-		8AE3705C2421644E00EA6622 /* Genre.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE3705B2421644E00EA6622 /* Genre.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,8 +48,6 @@
 		8AB9CA05242051A600E2A14A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8AE3705724215AE300EA6622 /* Movie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Movie.h; path = ObjectiveC_challenge/Movie.h; sourceTree = SOURCE_ROOT; };
 		8AE3705824215AE300EA6622 /* Movie.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Movie.m; path = ObjectiveC_challenge/Movie.m; sourceTree = SOURCE_ROOT; };
-		8AE3705A2421644E00EA6622 /* Genre.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Genre.h; sourceTree = SOURCE_ROOT; };
-		8AE3705B2421644E00EA6622 /* Genre.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Genre.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,8 +100,6 @@
 			children = (
 				8AE3705724215AE300EA6622 /* Movie.h */,
 				8AE3705824215AE300EA6622 /* Movie.m */,
-				8AE3705A2421644E00EA6622 /* Genre.h */,
-				8AE3705B2421644E00EA6622 /* Genre.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -202,7 +197,7 @@
 		8AB9C9DC242003D700E2A14A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Matheus Lima Ferreira";
 				TargetAttributes = {
 					8AB9C9E3242003D700E2A14A = {
@@ -252,7 +247,6 @@
 				8A6BB4E2242A724400073FC3 /* ViewController.swift in Sources */,
 				89EBE31A2420B32700B6AE26 /* MainViewController.m in Sources */,
 				8AE3705924215AE300EA6622 /* Movie.m in Sources */,
-				8AE3705C2421644E00EA6622 /* Genre.m in Sources */,
 				8AB9CA042420513E00E2A14A /* DetailsViewController.m in Sources */,
 				8AB9C9E9242003D700E2A14A /* AppDelegate.m in Sources */,
 				8AB9C9FA242003DA00E2A14A /* main.m in Sources */,
@@ -400,6 +394,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ZJDDP65ZQ3;
 				INFOPLIST_FILE = ObjectiveC_challenge/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -421,6 +416,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ZJDDP65ZQ3;
 				INFOPLIST_FILE = ObjectiveC_challenge/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        self.tableView.register(MovieCell.self, forCellReuseIdentifier: "CellID")
+//        self.tableView.register(MovieCell.self, forCellReuseIdentifier: "CellID")
         
         configureSearchController()
         fetchMovies()
