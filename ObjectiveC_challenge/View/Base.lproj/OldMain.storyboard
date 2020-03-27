@@ -142,16 +142,6 @@
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="126.5625"/>
         </scene>
-        <!--detail-->
-        <scene sceneID="7j9-U4-NqF">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Details" referencedIdentifier="detail" id="MdA-eS-g7w" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="Vyw-4r-Mhy"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="We8-Es-bTX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1860" y="127"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Fn9-tl-DRP">
             <objects>

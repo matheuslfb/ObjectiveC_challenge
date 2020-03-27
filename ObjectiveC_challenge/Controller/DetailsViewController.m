@@ -33,7 +33,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     self.title = @"Movie Details";
     self.navigationController.navigationBar.prefersLargeTitles = NO;
-    
+}
+
+- (void)viewWillDisappear:(BOOL)animated  {
+    self.navigationController.title = @"";
 }
 
 - (void) setupPosterImageView {

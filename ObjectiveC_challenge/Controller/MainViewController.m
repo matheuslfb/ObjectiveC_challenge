@@ -105,9 +105,12 @@ bool hasMoreMovies = NO;
 - (void) fetchMoreNowPlayingMovies{
     [Network.sharedNetworkInstance fetchNowPlayingMoviesByPage: self.page completion:^(NSMutableArray * _Nonnull movies) {
         NSLog(@"---- did fetch more now playing");
+        
         [ self->_nowPlayingMovies addObjectsFromArray: movies];
+        
         NSLog(@"%i", (int)self->_page);
         hasMoreMovies = NO;
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"---- did reload table");
             [self.mainTableView reloadData];

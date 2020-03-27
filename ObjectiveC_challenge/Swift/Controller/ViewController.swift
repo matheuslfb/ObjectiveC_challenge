@@ -12,7 +12,21 @@ class ViewController: UIViewController {
     
     var popularMovies: [Movie] = []
     var nowPlaying: [Movie] = []
+    var filteredMovies : [Movie] = []
     var selectedMovie = Movie()
+    var hasMoreMovies = false
+    var page = 1
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    var isSearchBarEmpty: Bool {
+      return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    var isFiltering: Bool {
+      return searchController.isActive && !isSearchBarEmpty
+    }
+
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -22,9 +36,16 @@ class ViewController: UIViewController {
         configureSearchController()
     }
     
-    func configureViewController() {
+    override func viewWillAppear(_ animated: Bool) {
         self.title = "Movies"
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.title = ""
+    }
+    
+    func configureViewController() {
         navigationController?.navigationBar.tintColor = .systemGreen
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -32,15 +53,16 @@ class ViewController: UIViewController {
     }
     
     func configureSearchController() {
-        let searchController = UISearchController()
+        
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Search for a movie"
         
-        //remove fade effect from collection view
-        searchController.obscuresBackgroundDuringPresentation = true
+        //remove fade effect from table view
+        searchController.obscuresBackgroundDuringPresentation = false
         
         navigationItem.searchController = searchController
+//        definesPresentationContext = true
     }
     
     func fetchMovies() {
@@ -75,7 +97,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate  {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 2
+            if isFiltering {
+                return filteredMovies.count
+            } else {
+                return 2
+            }
         case 1:
             return nowPlaying.count
         default:
@@ -89,7 +115,12 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate  {
         var movie = Movie()
         
         if indexPath.section == 0 {
-            movie = self.popularMovies[indexPath.row]
+            if(isFiltering){
+                movie = self.filteredMovies[indexPath.row]
+            } else {
+                movie = self.popularMovies[indexPath.row]
+            }
+            
         } else if indexPath.section == 1 {
             movie = self.nowPlaying[indexPath.row]
         }
@@ -98,20 +129,22 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate  {
         return cell
     }
     
-    @objc func createCell() -> MovieCell {
-        let cell = MovieCell()
-        
-        return cell
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
-        2
+        if isFiltering{
+            return 1
+        } else {
+            return 2
+        }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "Popular Movies"
+            if isFiltering{
+                return ""
+            } else {
+                return "Popular Movies"
+            }
         case 1:
             return "Now Playing"
         default:
@@ -122,34 +155,30 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate  {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        
-        var movies: [Movie] = []
         if indexPath.section == 0{
-            movies = self.popularMovies
+            if isFiltering {
+                self.selectedMovie = self.filteredMovies[indexPath.row]
+            } else {
+                self.selectedMovie = self.popularMovies[indexPath.row]
+            }
+            
         } else if indexPath.section == 1 {
-            movies = self.nowPlaying
+            self.selectedMovie = self.nowPlaying[indexPath.row]
         }
         
-        selectedMovie = movies[indexPath.row]
-        
-        
-        let storyboard = UIStoryboard(name: "Details", bundle: nil)
-        guard let vc =  storyboard.instantiateViewController(identifier: "detail") as? DetailsViewController else { return }
-        
-        print(selectedMovie.title)
-        vc.configure(with: selectedMovie)
-        self.show(vc, sender: nil)
-        //        self.performSegue(withIdentifier: "detail", sender: nil)
-        //        guard let vc = segue.destination as? DetailsViewController else { return }
-        //        self.show(vc, sender: nil)
+        self.performSegue(withIdentifier: "showDetail", sender: nil)
     }
     
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let vc = segue.destination as? DetailsViewController else { return }
-        print(selectedMovie.title)
         vc.movie = selectedMovie
-        //        vc.titleMovie?.text = selectedMovie.title
+        
+//       guard let indexPath = tableView.indexPathForSelectedRow else { return }
+//
+//        var movie  = self.popularMovies[indexPath.row]
+        
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -159,11 +188,39 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate  {
         header.textLabel?.tintColor = .black
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offSetY = scrollView.contentOffset.y
+        let maximumOffSet = scrollView.contentSize.height - scrollView.frame.size.height
+        
+        if (!hasMoreMovies && (maximumOffSet - offSetY <= 20)){
+            hasMoreMovies = true
+            self.page += 1
+            
+            guard let network = Network.sharedNetworkInstance() as? Network else { return }
+            
+            network.fetchNowPlayingMovies(byPage: Int32(self.page)) { (newMovies) in
+                self.nowPlaying.append(contentsOf: newMovies as! [Movie])
+                self.hasMoreMovies = false
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        
+    }
 }
 
 extension ViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        
+        let search = searchController.searchBar
+        filterContentFolSearchText(search.text!)
+    }
+    
+    func filterContentFolSearchText(_ searchText: String) {
+        filteredMovies = nowPlaying.filter{
+            $0.title.lowercased().contains(searchText.lowercased())
+        }
+        tableView.reloadData()
     }
 }
 
