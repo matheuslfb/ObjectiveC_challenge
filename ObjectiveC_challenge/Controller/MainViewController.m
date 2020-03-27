@@ -102,7 +102,7 @@ bool hasMoreMovies = NO;
     return @"";
 }
 
--(void) fetchMoreNowPlayingMovies{
+- (void) fetchMoreNowPlayingMovies{
     [Network.sharedNetworkInstance fetchNowPlayingMoviesByPage: self.page completion:^(NSMutableArray * _Nonnull movies) {
         NSLog(@"---- did fetch more now playing");
         [ self->_nowPlayingMovies addObjectsFromArray: movies];

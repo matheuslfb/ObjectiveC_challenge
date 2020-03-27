@@ -17,19 +17,18 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
+        configureViewController()
+        fetchMovies()
+        configureSearchController()
+    }
+    
+    func configureViewController() {
         self.title = "Movies"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.tintColor = .systemGreen
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
-        fetchMovies()
-        
-        configureSearchController()
-        
+        self.tableView.separatorColor = .clear
     }
     
     func configureSearchController() {
@@ -48,23 +47,26 @@ class ViewController: UIViewController {
         
         guard let network = Network.sharedNetworkInstance() as? Network else { return }
         
+        let group = DispatchGroup()
+        
+        group.enter()
         network.fetchMovies(POPULAR) { (movies) in
             print("------- fetch pop")
             self.popularMovies = movies as! [Movie]
-            DispatchQueue.main.async {
-                print("------- reload 1")
-                self.tableView.reloadData()
-            }
+            group.leave()
         }
         
+        group.enter()
         network.fetchMovies(NOW_PLAYING) { (movies) in
             print("------- fetch now")
             self.nowPlaying = movies as! [Movie]
-            
-            DispatchQueue.main.async {
-                print("------- reload 2")
-                self.tableView.reloadData()
-            }
+            group.leave()
+        }
+        
+        group.wait()
+        DispatchQueue.main.async {
+            print("------- reload 1")
+            self.tableView.reloadData()
         }
     }
 }
@@ -79,7 +81,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate  {
         default:
             return 0
         }
-        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -114,13 +115,13 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate  {
         case 1:
             return "Now Playing"
         default:
-            ""
+            return ""
         }
         return ""
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        
         
         var movies: [Movie] = []
         if indexPath.section == 0{
@@ -132,13 +133,13 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate  {
         selectedMovie = movies[indexPath.row]
         
         
-        var storyboard = UIStoryboard(name: "Details", bundle: nil)
+        let storyboard = UIStoryboard(name: "Details", bundle: nil)
         guard let vc =  storyboard.instantiateViewController(identifier: "detail") as? DetailsViewController else { return }
         
         print(selectedMovie.title)
         vc.configure(with: selectedMovie)
         self.show(vc, sender: nil)
-//        self.performSegue(withIdentifier: "detail", sender: nil)
+        //        self.performSegue(withIdentifier: "detail", sender: nil)
         //        guard let vc = segue.destination as? DetailsViewController else { return }
         //        self.show(vc, sender: nil)
     }
