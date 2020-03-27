@@ -77,7 +77,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate  {
         case 1:
             return nowPlaying.count
         default:
-            0
+            return 0
         }
         return 0
     }
@@ -149,6 +149,13 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate  {
         print(selectedMovie.title)
         vc.movie = selectedMovie
         //        vc.titleMovie?.text = selectedMovie.title
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = .systemBackground
+        
+        let header = UITableViewHeaderFooterView()
+        header.textLabel?.tintColor = .black
     }
     
 }
