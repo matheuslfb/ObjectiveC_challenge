@@ -46,8 +46,8 @@
 		8AB9CA022420513E00E2A14A /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		8AB9CA032420513E00E2A14A /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
 		8AB9CA05242051A600E2A14A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8AE3705724215AE300EA6622 /* Movie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Movie.h; path = ObjectiveC_challenge/Movie.h; sourceTree = SOURCE_ROOT; };
-		8AE3705824215AE300EA6622 /* Movie.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Movie.m; path = ObjectiveC_challenge/Movie.m; sourceTree = SOURCE_ROOT; };
+		8AE3705724215AE300EA6622 /* Movie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Movie.h; path = ObjectiveC_challenge/Model/Movie.h; sourceTree = SOURCE_ROOT; };
+		8AE3705824215AE300EA6622 /* Movie.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Movie.m; path = ObjectiveC_challenge/Model/Movie.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,13 +95,11 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		8985AA7C24201EB2006A9003 /* Model */ = {
+		8985AA7C24201EB2006A9003 /* OldModel */ = {
 			isa = PBXGroup;
 			children = (
-				8AE3705724215AE300EA6622 /* Movie.h */,
-				8AE3705824215AE300EA6622 /* Movie.m */,
 			);
-			path = Model;
+			path = OldModel;
 			sourceTree = "<group>";
 		};
 		8985AA7D24201EB8006A9003 /* View */ = {
@@ -112,6 +110,15 @@
 				8A1E261724214D49003131ED /* Details.storyboard */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		8A0C1062242E9A2C007EE1BF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8AE3705824215AE300EA6622 /* Movie.m */,
+				8AE3705724215AE300EA6622 /* Movie.h */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		8A6BB4DE242A720600073FC3 /* Swift */ = {
@@ -151,10 +158,11 @@
 		8AB9C9E6242003D700E2A14A /* ObjectiveC_challenge */ = {
 			isa = PBXGroup;
 			children = (
+				8A0C1062242E9A2C007EE1BF /* Model */,
 				8A6BB4DE242A720600073FC3 /* Swift */,
 				8AB9CA05242051A600E2A14A /* Assets.xcassets */,
 				8985AA7924201C77006A9003 /* Networking */,
-				8985AA7C24201EB2006A9003 /* Model */,
+				8985AA7C24201EB2006A9003 /* OldModel */,
 				8985AA7D24201EB8006A9003 /* View */,
 				8985AA7B24201EA5006A9003 /* Controller */,
 				8985AA7A24201D80006A9003 /* Support */,
