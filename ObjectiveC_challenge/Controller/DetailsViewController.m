@@ -24,7 +24,8 @@
     [super viewDidLoad];
     [self setupPosterImageView];
     [self configureWithMovie:self.movie];
-    
+
+//     NSLog(self.movie.title);
     sharedNetwork = [Network sharedNetworkInstance];
     
 }
@@ -32,6 +33,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     self.title = @"Movie Details";
     self.navigationController.navigationBar.prefersLargeTitles = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated  {
+    self.navigationController.title = @"";
 }
 
 - (void) setupPosterImageView {
@@ -54,14 +59,14 @@
             [concatGenres appendFormat:@"%@, ", genre];
         }
     }];
-    
+
     /// Loads cover
     NSMutableString *baseImageUrl = [NSMutableString stringWithString:@"https://image.tmdb.org/t/p/w185"];
     NSString *imagePath = [baseImageUrl stringByAppendingString:self.imageURL];
-    
-    
+
+
     UIImage *posterImage = [Network.sharedNetworkInstance getLocalImage:imagePath];
-    
+
     if(posterImage != nil){
         self.posterImageView.image = posterImage;
     } else {

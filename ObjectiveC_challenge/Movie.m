@@ -15,13 +15,13 @@
     
     if (self) {
         
-        NSString *movieID = dictionary[@"id"];
+        NSNumber *movieID = dictionary[@"id"];
         NSString *title = dictionary[@"title"];
         NSString *overview = dictionary[@"overview"];
         NSNumber *rating = dictionary[@"vote_average"];
         NSString *imageUrl = dictionary[@"poster_path"];
         
-        self.movieID = movieID;
+        self.movieID = movieID.stringValue;
         self.title = title;
         self.overview = overview;
         self.rating = rating;
@@ -34,13 +34,13 @@
 
 -(id) initByID:(NSDictionary*) dictionary{
     
-    NSString *movieID = dictionary[@"id"];
+    NSNumber *movieID = dictionary[@"id"];
     NSString *title = dictionary[@"title"];
     NSString *overview = dictionary[@"overview"];
     NSNumber *rating = dictionary[@"vote_average"];
     NSString *imageUrl = dictionary[@"poster_path"];
     
-    self.movieID = movieID;
+    self.movieID = movieID.stringValue;
     self.title = title;
     self.overview = overview;
     self.rating = rating;

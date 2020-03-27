@@ -23,7 +23,6 @@ NSString *baseURL = @"https://image.tmdb.org/t/p/w500";
     self.poster.layer.cornerRadius = 10;
     self.poster.clipsToBounds = YES;
     
-    // Configure the view for the selected state
 }
 
 -(void) configureWithMovie: (Movie*) movie {

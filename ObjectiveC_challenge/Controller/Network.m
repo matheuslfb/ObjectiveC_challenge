@@ -149,7 +149,7 @@
 }
 
 
-- (void) fetchMovies:(moviesCategory)moviesCategory completion: (void (^)(NSMutableArray*))callback {
+- (void) fetchMovies:(moviesCategory)moviesCategory completion: (void (^)(NSMutableArray<Movie *>*))callback {
     
     NSString *movies_GET_URL = [NSString alloc];
     

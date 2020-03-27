@@ -21,10 +21,12 @@
     
 //    self.window = UIWindow.new;
 //    [self.window makeKeyAndVisible];
-//    
-//    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController: MainViewController.new];
-//    
-//    
+//
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"swift" bundle:nil];
+//    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SwiftVC"];
+//
+//    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController: vc];
+
     return YES;
 }
 

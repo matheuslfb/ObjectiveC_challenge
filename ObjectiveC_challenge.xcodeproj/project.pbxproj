@@ -12,15 +12,15 @@
 		8A49A70D2422993F006FB1C9 /* Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A49A70C2422993F006FB1C9 /* Network.m */; };
 		8A49A7102422BD1A006FB1C9 /* MovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A49A70F2422BD1A006FB1C9 /* MovieCell.m */; };
 		8A6BB4E2242A724400073FC3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BB4E1242A724400073FC3 /* ViewController.swift */; };
+		8AAEBDEF242D0CC000688D6B /* swift.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AAEBDEE242D0CC000688D6B /* swift.storyboard */; };
 		8AB9C9E9242003D700E2A14A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9C9E8242003D700E2A14A /* AppDelegate.m */; };
 		8AB9C9EC242003D700E2A14A /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9C9EB242003D700E2A14A /* SceneDelegate.m */; };
-		8AB9C9F2242003D700E2A14A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AB9C9F0242003D700E2A14A /* Main.storyboard */; };
+		8AB9C9F2242003D700E2A14A /* OldMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AB9C9F0242003D700E2A14A /* OldMain.storyboard */; };
 		8AB9C9F7242003DA00E2A14A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AB9C9F5242003DA00E2A14A /* LaunchScreen.storyboard */; };
 		8AB9C9FA242003DA00E2A14A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9C9F9242003DA00E2A14A /* main.m */; };
 		8AB9CA042420513E00E2A14A /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9CA032420513E00E2A14A /* DetailsViewController.m */; };
 		8AB9CA06242051A600E2A14A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AB9CA05242051A600E2A14A /* Assets.xcassets */; };
 		8AE3705924215AE300EA6622 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE3705824215AE300EA6622 /* Movie.m */; };
-		8AE3705C2421644E00EA6622 /* Genre.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE3705B2421644E00EA6622 /* Genre.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,12 +33,13 @@
 		8A49A70F2422BD1A006FB1C9 /* MovieCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieCell.m; sourceTree = "<group>"; };
 		8A6BB4E0242A724400073FC3 /* ObjectiveC_challenge-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjectiveC_challenge-Bridging-Header.h"; sourceTree = "<group>"; };
 		8A6BB4E1242A724400073FC3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8AAEBDEE242D0CC000688D6B /* swift.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = swift.storyboard; sourceTree = "<group>"; };
 		8AB9C9E4242003D700E2A14A /* The Movie DB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Movie DB.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB9C9E7242003D700E2A14A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8AB9C9E8242003D700E2A14A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8AB9C9EA242003D700E2A14A /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		8AB9C9EB242003D700E2A14A /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		8AB9C9F1242003D700E2A14A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8AB9C9F1242003D700E2A14A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/OldMain.storyboard; sourceTree = "<group>"; };
 		8AB9C9F6242003DA00E2A14A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8AB9C9F8242003DA00E2A14A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AB9C9F9242003DA00E2A14A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -47,8 +48,6 @@
 		8AB9CA05242051A600E2A14A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8AE3705724215AE300EA6622 /* Movie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Movie.h; path = ObjectiveC_challenge/Movie.h; sourceTree = SOURCE_ROOT; };
 		8AE3705824215AE300EA6622 /* Movie.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Movie.m; path = ObjectiveC_challenge/Movie.m; sourceTree = SOURCE_ROOT; };
-		8AE3705A2421644E00EA6622 /* Genre.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Genre.h; sourceTree = SOURCE_ROOT; };
-		8AE3705B2421644E00EA6622 /* Genre.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Genre.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +100,6 @@
 			children = (
 				8AE3705724215AE300EA6622 /* Movie.h */,
 				8AE3705824215AE300EA6622 /* Movie.m */,
-				8AE3705A2421644E00EA6622 /* Genre.h */,
-				8AE3705B2421644E00EA6622 /* Genre.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -111,7 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				8AB9C9F5242003DA00E2A14A /* LaunchScreen.storyboard */,
-				8AB9C9F0242003D700E2A14A /* Main.storyboard */,
+				8AB9C9F0242003D700E2A14A /* OldMain.storyboard */,
 				8A1E261724214D49003131ED /* Details.storyboard */,
 			);
 			path = View;
@@ -131,6 +128,7 @@
 			children = (
 				8A6BB4E1242A724400073FC3 /* ViewController.swift */,
 				8A6BB4E0242A724400073FC3 /* ObjectiveC_challenge-Bridging-Header.h */,
+				8AAEBDEE242D0CC000688D6B /* swift.storyboard */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -199,7 +197,7 @@
 		8AB9C9DC242003D700E2A14A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Matheus Lima Ferreira";
 				TargetAttributes = {
 					8AB9C9E3242003D700E2A14A = {
@@ -231,9 +229,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AAEBDEF242D0CC000688D6B /* swift.storyboard in Resources */,
 				8A1E261824214D4A003131ED /* Details.storyboard in Resources */,
 				8AB9C9F7242003DA00E2A14A /* LaunchScreen.storyboard in Resources */,
-				8AB9C9F2242003D700E2A14A /* Main.storyboard in Resources */,
+				8AB9C9F2242003D700E2A14A /* OldMain.storyboard in Resources */,
 				8AB9CA06242051A600E2A14A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -248,7 +247,6 @@
 				8A6BB4E2242A724400073FC3 /* ViewController.swift in Sources */,
 				89EBE31A2420B32700B6AE26 /* MainViewController.m in Sources */,
 				8AE3705924215AE300EA6622 /* Movie.m in Sources */,
-				8AE3705C2421644E00EA6622 /* Genre.m in Sources */,
 				8AB9CA042420513E00E2A14A /* DetailsViewController.m in Sources */,
 				8AB9C9E9242003D700E2A14A /* AppDelegate.m in Sources */,
 				8AB9C9FA242003DA00E2A14A /* main.m in Sources */,
@@ -261,12 +259,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		8AB9C9F0242003D700E2A14A /* Main.storyboard */ = {
+		8AB9C9F0242003D700E2A14A /* OldMain.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				8AB9C9F1242003D700E2A14A /* Base */,
 			);
-			name = Main.storyboard;
+			name = OldMain.storyboard;
 			sourceTree = "<group>";
 		};
 		8AB9C9F5242003DA00E2A14A /* LaunchScreen.storyboard */ = {
@@ -314,6 +312,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -372,6 +371,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -396,6 +396,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ZJDDP65ZQ3;
 				INFOPLIST_FILE = ObjectiveC_challenge/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -417,6 +418,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ZJDDP65ZQ3;
 				INFOPLIST_FILE = ObjectiveC_challenge/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -8,85 +8,222 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+class ViewController: UIViewController {
     
-//    var datasource: UITableViewDiffableDataSource<moviesCategoryType, Movie>?
+    var popularMovies: [Movie] = []
+    var nowPlaying: [Movie] = []
+    var filteredMovies : [Movie] = []
+    var selectedMovie = Movie()
+    var hasMoreMovies = false
+    var page = 1
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    var isSearchBarEmpty: Bool {
+      return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    var isFiltering: Bool {
+      return searchController.isActive && !isSearchBarEmpty
+    }
 
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        configureViewController()
+        fetchMovies()
+        configureSearchController()
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.title = "Movies"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.title = ""
     }
+    
+    func configureViewController() {
+        navigationController?.navigationBar.tintColor = .systemGreen
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.separatorColor = .clear
+    }
+    
+    func configureSearchController() {
+        
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Search for a movie"
+        
+        //remove fade effect from table view
+        searchController.obscuresBackgroundDuringPresentation = false
+        
+        navigationItem.searchController = searchController
+//        definesPresentationContext = true
+    }
+    
+    func fetchMovies() {
+        
+        guard let network = Network.sharedNetworkInstance() as? Network else { return }
+        
+        let group = DispatchGroup()
+        
+        group.enter()
+        network.fetchMovies(POPULAR) { (movies) in
+            print("------- fetch pop")
+            self.popularMovies = movies as! [Movie]
+            group.leave()
+        }
+        
+        group.enter()
+        network.fetchMovies(NOW_PLAYING) { (movies) in
+            print("------- fetch now")
+            self.nowPlaying = movies as! [Movie]
+            group.leave()
+        }
+        
+        group.wait()
+        DispatchQueue.main.async {
+            print("------- reload 1")
+            self.tableView.reloadData()
+        }
+    }
+}
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+extension ViewController: UITableViewDataSource, UITableViewDelegate  {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            if isFiltering {
+                return filteredMovies.count
+            } else {
+                return 2
+            }
+        case 1:
+            return nowPlaying.count
+        default:
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CellID") as? MovieCell else { return UITableViewCell()}
+        
+        var movie = Movie()
+        
+        if indexPath.section == 0 {
+            if(isFiltering){
+                movie = self.filteredMovies[indexPath.row]
+            } else {
+                movie = self.popularMovies[indexPath.row]
+            }
+            
+        } else if indexPath.section == 1 {
+            movie = self.nowPlaying[indexPath.row]
+        }
+        
+        cell.configure(with: movie)
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        if isFiltering{
+            return 1
+        } else {
+            return 2
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            if isFiltering{
+                return ""
+            } else {
+                return "Popular Movies"
+            }
+        case 1:
+            return "Now Playing"
+        default:
+            return ""
+        }
+        return ""
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == 0{
+            if isFiltering {
+                self.selectedMovie = self.filteredMovies[indexPath.row]
+            } else {
+                self.selectedMovie = self.popularMovies[indexPath.row]
+            }
+            
+        } else if indexPath.section == 1 {
+            self.selectedMovie = self.nowPlaying[indexPath.row]
+        }
+        
+        self.performSegue(withIdentifier: "showDetail", sender: nil)
     }
-    */
+    
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        guard let vc = segue.destination as? DetailsViewController else { return }
+        vc.movie = selectedMovie
+        
+//       guard let indexPath = tableView.indexPathForSelectedRow else { return }
+//
+//        var movie  = self.popularMovies[indexPath.row]
+        
     }
-    */
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = .systemBackground
+        
+        let header = UITableViewHeaderFooterView()
+        header.textLabel?.tintColor = .black
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offSetY = scrollView.contentOffset.y
+        let maximumOffSet = scrollView.contentSize.height - scrollView.frame.size.height
+        
+        if (!hasMoreMovies && (maximumOffSet - offSetY <= 20)){
+            hasMoreMovies = true
+            self.page += 1
+            
+            guard let network = Network.sharedNetworkInstance() as? Network else { return }
+            
+            network.fetchNowPlayingMovies(byPage: Int32(self.page)) { (newMovies) in
+                self.nowPlaying.append(contentsOf: newMovies as! [Movie])
+                self.hasMoreMovies = false
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        
+    }
+}
 
+extension ViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let search = searchController.searchBar
+        filterContentFolSearchText(search.text!)
+    }
+    
+    func filterContentFolSearchText(_ searchText: String) {
+        filteredMovies = nowPlaying.filter{
+            $0.title.lowercased().contains(searchText.lowercased())
+        }
+        tableView.reloadData()
+    }
+}
+
+extension ViewController:  UISearchBarDelegate {
+    
 }
