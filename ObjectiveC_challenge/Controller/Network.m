@@ -16,9 +16,7 @@
 
 - (id)init {
     if (self = [super init]) {
-        
         self.cache = [NSCache<NSString*, UIImage *> new];
-        
         self.now_playing_url = @"https://api.themoviedb.org/3/movie/now_playing?";
         self.popular_url= @"https://api.themoviedb.org/3/movie/now_playing?api_key=6af6fb6deb5f2e4c6d36e514240eeebb&language=en-US&page=1";
         self.API_KEY =@"6af6fb6deb5f2e4c6d36e514240eeebb";
@@ -37,22 +35,6 @@
     
     return sharedNetworkInstance;
 }
-
-
-
-//-(void) getImageFromUrl: (NSString* ) imageURL completion:(void (^)(NSData*))callback{
-//    NSURL *imgURL = [NSURL URLWithString:imageURL];
-//
-//    [[NSURLSession.sharedSession dataTaskWithURL:imgURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//
-//        if(!error) {
-//            callback(data);
-//        } else {
-//            NSLog(@"Image fetch error: %@", error);
-//        }
-//
-//    }] resume];
-//}
 
 -(void) getImageFromUrl:(NSString *)imageURL completion:(void (^)(UIImage *))callback {
     NSURL *imgURL = [NSURL URLWithString:imageURL];

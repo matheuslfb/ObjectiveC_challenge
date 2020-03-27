@@ -117,7 +117,6 @@
 		8A6BB4DE242A720600073FC3 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
-				8A6BB4E3242A73B100073FC3 /* Model */,
 				8A6BB4DF242A721200073FC3 /* Controller */,
 			);
 			path = Swift;
@@ -131,13 +130,6 @@
 				8AAEBDEE242D0CC000688D6B /* swift.storyboard */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		8A6BB4E3242A73B100073FC3 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		8AB9C9DB242003D700E2A14A = {

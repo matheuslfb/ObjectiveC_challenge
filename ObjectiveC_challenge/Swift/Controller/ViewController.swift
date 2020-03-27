@@ -62,7 +62,6 @@ class ViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         
         navigationItem.searchController = searchController
-//        definesPresentationContext = true
     }
     
     func fetchMovies() {
@@ -206,6 +205,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate  {
                 }
             }
         }
+        
         
     }
 }
